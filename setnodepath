@@ -1,0 +1,2 @@
+#!/bin/bash
+export PATH=$PATH:$(find `pwd` -name node|grep 'bin/node'|sed 's/\/node$//')

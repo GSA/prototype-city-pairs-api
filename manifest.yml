@@ -1,0 +1,9 @@
+---
+applications:
+- name: cityPairsAPI
+  memory: 512M  
+env:  
+  NODE_ENV: development
+  DB_NAME: cityPairsDB
+services:
+- cityPairsDB
