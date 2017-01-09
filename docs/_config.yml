@@ -1,6 +1,0 @@
-name: GSA API Docs
-markdown: kramdown
-highlighter: rouge
-safe: true
-baseurl: /api/
-exclude: ['.ruby-version', 'node_modules', 'package.json', 'bower.json']
