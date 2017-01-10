@@ -12,17 +12,18 @@ cf ssh citypairsapi
 
 ## setnodepath
 
-In the cloud ssh shell, you need to source file "setnodepath" set shell invironment variable of PATH.
+In the cloud ssh shell, you need to source file "setnodepath" to set shell invironment variable of PATH.
 
-```bash
+```
 source setnodepath
 ```
 
 ## run_sql.js
 
-With this run sql utility, you can run a sql query to a binded sql database.
+With this run sql utility, you can run a sql query to a binded mysql database.
 
-```vcap@79f0bf19-c8ce-402e-427a-eb2a92f20f6d:~/app$ 
+```
+vcap@79f0bf19-c8ce-402e-427a-eb2a92f20f6d:~/app$ 
 node run_sql.js "select count(*) from cityPairsMaster"
 select count(*) from cityPairsMaster
 [ TextRow { 'count(*)': 33160 } ]
