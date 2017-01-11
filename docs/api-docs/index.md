@@ -5,8 +5,7 @@ layout: default
 ---
 ### Overview 
 
-This section should contain an overview of the data provided and the API purpose.
-
+The Prototpe City Pairs API is a reference project intended to demonstrate the principles of the [GSA API Standards](https://github.com/GSA/api-standards/blob/converting-gsa-standards/README.md) and [API Documentation Template](https://github.com/GSA/api-documentation-template).
 
 ##### Using the API
 We built the API to be as self-documenting as possible, but if you find yourself overwhelmed, we organized this site into four major areas.
