@@ -1,6 +1,7 @@
 # How to create Sailsjs webserver on cloud.gov
 
 *Purpose:* create a sailsjs webserver on cloud.gov platform with minimums customizations. After this process, one will learn the necessary steps to deploy a sailsjs webserver to cloud.gov to short the learning curve.
+
 *Assumptions:* Node.js is already installed and cloud.gov’s CLI cf is already installed to your local computer. An account to cloud.gov is already created with organization of sandbox-gsa.
 
 ##setups
@@ -22,6 +23,7 @@ In this document, I use the following setups.
 	npm -g install sails
 	sails new testProject
 ```
+
 	A project directory testProject is created under directory c:/home. To test the installation on your local computer, use the following commands:
 ```
 	cd testProject
@@ -30,8 +32,8 @@ In this document, I use the following setups.
 	start a web browser and visit the address: http://localhost:1337/
     
 ## push to cloud
-	In order to push this code to cloud.gov, we need to create two more files, Procfile and manifest.yml.
 
+	In order to push this code to cloud.gov, we need to create two more files, Procfile and manifest.yml.
 	Procfile (with capital P) have one line.
 
 The contents of file **Profile**
@@ -54,7 +56,9 @@ Prepare the cf of cloud.gov and push the code to cloud app *firstSails* as indic
 
 ###login to cloud.gov
 You need to request your organization cloud.gov administrator to add you as a cloud user first.
+
 Here is a login example. You need to get one time code from url https://login.fr.cloud.gov/passcode.
+
 I choose org sandbox-gsa for this excise. 
  
 ```
@@ -93,4 +97,8 @@ now, your are ready to push the application to cloud.gov.
 		cf push
 ```
 
-	After the push, you can test the web server with url test.apps.cloud.gov
+	After the push, you can test the web server with url firstsails.apps.cloud.gov
+
+##url note
+If the application name 'firstsails' is unique in the whole cloud, the url firstsails.apps.cloud.gov 
+will work. Otherwise, you can change the url on cloud.gov dashboard in the **Routes** section.
