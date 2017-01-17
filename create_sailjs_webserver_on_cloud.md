@@ -51,8 +51,8 @@ applications:
 env:  
   NODE_ENV: development
 ```
-            
-Prepare the cf of cloud.gov and push the code to cloud app *firstSails* as indicated in manifest.yml file.
+
+##Prepare the cf of cloud.gov and push the app to cloud
 
 ###login to cloud.gov
 You need to request your organization cloud.gov administrator to add you as a cloud user first.
