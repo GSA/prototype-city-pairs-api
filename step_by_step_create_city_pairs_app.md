@@ -20,35 +20,38 @@ Using powershell on local machine
 
 
 ##Steps:
-1. create mysql service on organization 'gsa-cto' and space 'sandbox'.
-    1.a click the "Add a new service instance" button.
-    1.b choose service plan "shared-mysql", and click "create service instance" button.
-    1.c Enter name of this service. i.e. "cityPairsAPI". Choose space "sandbox". click "create service instance" button.
-    1.d We will update manifest.yml with this service name later.
+###1. create mysql service on organization 'gsa-cto' and space 'sandbox'.
+1. click the "Add a new service instance" button.
+1. choose service plan "shared-mysql", and click "create service instance" button.
+1. Enter name of this service. i.e. "cityPairsAPI". Choose space "sandbox". click "create service instance" button.
+1. We will update manifest.yml with this service name later.
     
-2. install sails.js command-line tool on your local computer in PowerShell windown. You may already installed it.
+###2. install sails.js command-line tool on your local computer in PowerShell windown. You may already installed it.
+```
     npm -g install sails
-    
-3. create a new sails project under your project directory
-    3.a create a new sails application.  "sails new prototype-city-pairs-api"
-    3.b change directory to prototype-city-pairs-api.  "cd prototype-city-pairs-api"
-    3.c start the application. "sails lift"
-    3.d start your web browser to verify your installation. The url is “localhost:3000”.
-    3.e add engines entry to file package.json.
+```  
+###3. create a new sails project under your project directory
+1. create a new sails application.  "sails new prototype-city-pairs-api"
+1. change directory to prototype-city-pairs-api.  "cd prototype-city-pairs-api"
+1. start the application. "sails lift"
+1. start your web browser to verify your installation. The url is “localhost:3000”.
+1. add engines entry to file package.json.
 ```
  "engines": {
     "node": "7.x.x"
   },
 ```
-   3.f add two node modules mysql2 and sails-mysql.
+1. add two node modules mysql2 and sails-mysql.
 ```
 npm install --save mysql2
 npm install --save sails-mysql 
 ``` 
-4. prepare for cloud.gov.
-    4.a In prototype-city-pairs-api directory, create file Procfile with one line in it.
-        web: node app.js
-    4.b create file manifest.yml.  
+###4. prepare for cloud.gov.
+..1. In prototype-city-pairs-api directory, create file Procfile with one line in it.
+```
+web: node app.js
+```
+..1. create file manifest.yml.  
 ```
 ---
 applications:
@@ -64,9 +67,9 @@ services:
 Here, we defined an invironment variable *DB_NAME*. Application will use this variable to find database to connect.
 The services section indicates the database cityPairDB will bind to this application.
         
-5. setup MySql database connection information in Sails.js.
-    5.a open file config/connections.js
-    5.b add the following code in the top of this file
+###5. setup MySql database connection information in Sails.js.
+1. open file config/connections.js
+1. add the following code in the top of this file
 ```
 //---------------------------------
 function getDbConnObj(name) {
@@ -91,22 +94,22 @@ function getDbConnObj(name) {
 //----------------------------------------
 ```
 
-      5.c add the following line to the MySQL section of this file
+1. add the following line to the MySQL section of this file
 ```
 //------------------------------------------------
 cityPairsMySQL: db_cred
 //-----------------------------------------------
 ```
 
-      5.d setup default connection to file config/models.js
-      5.e add the following line to file config/models.js before the line with 'migration'.
+1. setup default connection to file config/models.js
+1. add the following line to file config/models.js before the line with 'migration'.
 ```
 //----------------------------------------------------------
 connection: 'cityPairsMySQL',
 //----------------------------------------------------------
 ```
 
-6. update config/models.js
+###6. update config/models.js
 We will create tables in a seperate process and load data in a seperate process too.
 In this case, we need to turn off autoPK, autoCreatedAt, autoUpdatedAt flags.
 
@@ -122,13 +125,13 @@ module.exports.models = {
 }
 ```
 
-7. generate data model CityPairsMaster.
+###7. generate data model CityPairsMaster.
 ```
 sails generate api CityPairsMaster
 ```  
 This command generates two files, api/models/CityPairsMaster.js and api/controllers/CityPairsMasterController.js.
    
-8. update file api/models/CityPairsMaster.js with the following code:
+###8. update file api/models/CityPairsMaster.js with the following code:
 ```js
 module.exports = {
 tableName: 'cityPairsMaster',
@@ -162,7 +165,7 @@ attributes: {
 
 ```
 
-9. update file api/controllers/CityPairsMasterController.js with the following code:
+###9. update file api/controllers/CityPairsMasterController.js with the following code:
 
 ```js
 var util = require('util');
@@ -200,7 +203,7 @@ module.exports = {
 };
 ```
 
-10. create home page for this project
+### 10. create home page for this project
 file name: views/welcome.ejs
 
 ```js
@@ -216,7 +219,7 @@ example: '/v0/citypairs/airfares?award_year=2015&origin_airport_abbrev=abq&desti
 </pre>
 ```
 
-11. update file config/routes.js
+### 11. update file config/routes.js
 
 ```js
 module.exports.routes = {
@@ -251,31 +254,31 @@ module.exports.routes = {
 };
 ```
 
-12. login to fr.cloud.gov
+###12. login to fr.cloud.gov
 ```
 cf login -a api.fr.cloud.gov --sso
 ```
 
-13. setup cloud.gov target.
+###13. setup cloud.gov target.
 ```
 cf target -o gsa-cto -s sandbox
 ```
           
-14. push the application to the cloud
+###14. push the application to the cloud
 ```
 cf push
 ```
 
 At this point, the database is not yet ready. We need to create schema and load data.
     
-15. ## login to cloud bash console
+###15. login to cloud bash console
 ```
 cf org gsa-cto
 cf login -a api.fr.cloud.gov --sso
 cf ssh citypairsapi
 ```
 
-16. in the cloud console, set environment first.
+###16. in the cloud console, set environment first.
 
 In the cloud ssh shell, you need to source file "setnodepath" to set shell invironment variable of PATH.
 
@@ -293,13 +296,13 @@ The contents of setnodepath is as following.
 export PATH=$PATH:$(find `pwd` -name node|grep 'bin/node'|sed 's/\/node$//')
 ```
 
-17. In cloud console, create tables cityPairsRawData and cityPairsMaster using utility code run_sql_file.js.
+###17. In cloud console, create tables cityPairsRawData and cityPairsMaster using utility code run_sql_file.js.
 
 ```
 node run_sql_file.js cityPairsRawData_tables.sql
 ```
 
-18. In cloud console, load data to table cityPairsRawData.
+###18. In cloud console, load data to table cityPairsRawData.
 
 Before the load, we need to inspect the data integrity with spreedsheet.
 The table names are case sensitive in Linux server.
@@ -310,13 +313,13 @@ node load_data_to_mysql.js cityPairsRawData award2016.csv
 node load_data_to_mysql.js cityPairsRawData award2017.csv
 ```
 
-19. In cloud console, reformat the raw data and load to table cityPairsMaster.
+###19. In cloud console, reformat the raw data and load to table cityPairsMaster.
 
 ```
 node run_sql_file.js cityPairsMaster.sql
 ```
 
-20. In cloud console, check how many rows have loaded.
+###20. In cloud console, check how many rows have loaded.
 
 ```
 vcap@79f0bf19-c8ce-402e-427a-eb2a92f20f6d:~/app$ 
@@ -325,4 +328,4 @@ select count(*) from cityPairsMaster
 [ TextRow { 'count(*)': 33160 } ]
 ```
 
-21. Test the web server with a web browser.
+###21. Test the web server with a web browser.
