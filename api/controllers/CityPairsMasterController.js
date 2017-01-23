@@ -8,33 +8,6 @@
 
 var util = require('util');
 
-function mysqlDateToGSA(obj) {
-    function format_date (d) {
-        function pad(number) {
-        if (number < 10) {
-            return '0' + number;
-        }
-        return number;
-        }
-    
-     return d.getUTCFullYear() +
-        '-' + pad(d.getUTCMonth() + 1) +
-        '-' + pad(d.getUTCDate()) +
-        'T' + pad(d.getUTCHours()) +
-        ':' + pad(d.getUTCMinutes()) +
-        ':' + pad(d.getUTCSeconds()) +
-        'Z';
-    }
-    var ret = {};
-    for (var k in obj) {
-        if( obj[k] instanceof Date) {
-            ret[k] = format_date(obj[k]);
-        } else {
-            ret[k] = obj[k];
-        }
-    }
-    return ret;
-}
 
 module.exports = {
 	airfares: function(req, res) {
@@ -90,8 +63,7 @@ module.exports = {
         
         CityPairsMaster.find(filter).exec(
             function(err, results) {
-                var ret = mysqlDateToGSA(results);
-                return res.json({result: ret, error: err});
+                return res.json({result: results, error: err});
             }
         )
     }
