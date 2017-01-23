@@ -37,20 +37,27 @@ Using powershell on local machine
 1. start your web browser to verify your installation. The url is “localhost:3000”.
 1. add engines entry to file package.json.
 
+    ```
     "engines": {
         "node": "7.x.x"
     },
+    ```
 1. add two node modules mysql2 and sails-mysql.
 
+    ```
     npm install --save mysql2
     npm install --save sails-mysql 
+    ```
 
 ###4. prepare for cloud.gov.
 
 1. In prototype-city-pairs-api directory, create file *Procfile* with one line in it.
 
+    ```
     web: node app.js
+    ```
 1. create file *manifest.yml*.  
+    ```
     ---
     applications:
     - name: cityPairsAPI
@@ -60,6 +67,7 @@ Using powershell on local machine
     DB_NAME: cityPairsDB
     services:
     - cityPairsDB
+    ```
 
 Here, we defined an invironment variable *DB_NAME*. Application will use this variable to find database to connect.
 The services section indicates the database cityPairDB will bind to this application.
@@ -68,6 +76,7 @@ The services section indicates the database cityPairDB will bind to this applica
 1. open file config/connections.js
 1. add the following code in the top of this file
 
+    ```
     //---------------------------------
     function getDbConnObj(name) {
         var cred = JSON.parse(process.env.VCAP_SERVICES)
@@ -89,33 +98,40 @@ The services section indicates the database cityPairDB will bind to this applica
     var db_name = process.env.DB_NAME;
     var db_cred = getDbConnObj(db_name);
     //----------------------------------------
+    ```
 
 1. add the following line to the MySQL section of this file
 
+    ```
     //------------------------------------------------
     cityPairsMySQL: db_cred
     //-----------------------------------------------
+    ```
 
 1. setup default connection to file config/models.js
 1. add the following line to file config/models.js before the line with 'migration'.
 
+    ```
     //----------------------------------------------------------
     connection: 'cityPairsMySQL',
     //----------------------------------------------------------
+    ```
 
 ###6. update config/models.js
 We will create tables in a seperate process and load data in a seperate process too.
 In this case, we need to turn off autoPK, autoCreatedAt, autoUpdatedAt flags.
 
-    module.exports.models = {
+```
+module.exports.models = {
 
-    connection: 'cityPairsMySQL',
-    migrate: 'safe',
-    
-    autoPK: false,
-    autoCreatedAt: false,
-    autoUpdatedAt: false
-    }
+connection: 'cityPairsMySQL',
+migrate: 'safe',
+
+autoPK: false,
+autoCreatedAt: false,
+autoUpdatedAt: false
+}
+```
 
 ###7. generate data model CityPairsMaster.
 
@@ -126,6 +142,7 @@ This command generates two files, api/models/CityPairsMaster.js and api/controll
    
 ###8. update file api/models/CityPairsMaster.js with the following code:
 
+    ```
     module.exports = {
     tableName: 'cityPairsMaster',
     
@@ -155,10 +172,12 @@ This command generates two files, api/models/CityPairsMaster.js and api/controll
         EXPIRATION_DATE : { type: 'date' }
     }
     };
+    ```
 
 
 ###9. update file api/controllers/CityPairsMasterController.js with the following code:
 
+    ```
     var util = require('util');
 
     module.exports = {
@@ -192,54 +211,59 @@ This command generates two files, api/models/CityPairsMaster.js and api/controll
             )
         }
     };
+    ```
 
 ### 10. create home page for this project
 
 file name: views/welcome.ejs
 
-    <h1>Welcome to Web CityPairs API demo page!</h1>
+```
+<h1>Welcome to Web CityPairs API demo page!</h1>
 
-    <p> current supported APIs </p>
+<p> current supported APIs </p>
 
-    <ul>
-    <li>/v0/citypairs/airfares<li>
-    </ul>
-    <pre>
-    example: '/v0/citypairs/airfares?award_year=2015&origin_airport_abbrev=abq&destination_airport_abbrev=BWI'
+<ul>
+<li>/v0/citypairs/airfares<li>
+</ul>
+<pre>
+example: '/v0/citypairs/airfares?award_year=2015&origin_airport_abbrev=abq&destination_airport_abbrev=BWI'
     </pre>
+```
 
 ### 11. update file config/routes.js
 
-    module.exports.routes = {
+```
+module.exports.routes = {
 
-    /***************************************************************************
-    *                                                                          *
-    * Make the view located at `views/homepage.ejs` (or `views/homepage.jade`, *
-    * etc. depending on your default view engine) your home page.              *
-    *                                                                          *
-    * (Alternatively, remove this and add an `index.html` file in your         *
-    * `assets` directory)                                                      *
-    *                                                                          *
-    ***************************************************************************/
+/***************************************************************************
+*                                                                          *
+* Make the view located at `views/homepage.ejs` (or `views/homepage.jade`, *
+* etc. depending on your default view engine) your home page.              *
+*                                                                          *
+* (Alternatively, remove this and add an `index.html` file in your         *
+* `assets` directory)                                                      *
+*                                                                          *
+***************************************************************************/
 
-    '/': {
-        view: 'welcome'
-    }
-    
-    , '/travel/citypairs/v0/airfares': 'CityPairsMasterController.airfares' 
+'/': {
+    view: 'welcome'
+}
+
+, '/travel/citypairs/v0/airfares': 'CityPairsMasterController.airfares' 
 
 
-    /***************************************************************************
-    *                                                                          *
-    * Custom routes here...                                                    *
-    *                                                                          *
-    * If a request to a URL doesn't match any of the custom routes above, it   *
-    * is matched against Sails route blueprints. See `config/blueprints.js`    *
-    * for configuration options and examples.                                  *
-    *                                                                          *
-    ***************************************************************************/
+/***************************************************************************
+*                                                                          *
+* Custom routes here...                                                    *
+*                                                                          *
+* If a request to a URL doesn't match any of the custom routes above, it   *
+* is matched against Sails route blueprints. See `config/blueprints.js`    *
+* for configuration options and examples.                                  *
+*                                                                          *
+***************************************************************************/
 
-    };
+};
+```
     
 ###12. update config/cors.js
 
