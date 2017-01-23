@@ -48,13 +48,15 @@ Using powershell on local machine
     npm install --save mysql2
     npm install --save sails-mysql 
     ``` 
+
 ###4. prepare for cloud.gov.
-1. In prototype-city-pairs-api directory, create file Procfile with one line in it.
+
+1. In prototype-city-pairs-api directory, create file *Procfile* with one line in it.
 
     ```
     web: node app.js
     ```
-    ..1. create file manifest.yml.  
+1. create file *manifest.yml*.  
     ```
     ---
     applications:
@@ -119,7 +121,7 @@ The services section indicates the database cityPairDB will bind to this applica
 We will create tables in a seperate process and load data in a seperate process too.
 In this case, we need to turn off autoPK, autoCreatedAt, autoUpdatedAt flags.
 
-    ```js
+    ```
     module.exports.models = {
 
     connection: 'cityPairsMySQL',
@@ -140,7 +142,7 @@ This command generates two files, api/models/CityPairsMaster.js and api/controll
    
 ###8. update file api/models/CityPairsMaster.js with the following code:
 
-    ```js
+    ```
     module.exports = {
     tableName: 'cityPairsMaster',
     
@@ -175,12 +177,12 @@ This command generates two files, api/models/CityPairsMaster.js and api/controll
 
 ###9. update file api/controllers/CityPairsMasterController.js with the following code:
 
-    ```js
+    ```
     var util = require('util');
 
     module.exports = {
         airfares: function(req, res) {
-            res.set({'Content-Type': 'charset=utf-8'});
+            res.set({'Content-Type': 'application/json; charset=utf-8'});
             var filter = {
                 award_year: req.param('award_year'),
                 origin_airport_abbrev: req.param('origin_airport_abbrev'),
@@ -215,7 +217,7 @@ This command generates two files, api/models/CityPairsMaster.js and api/controll
 
 file name: views/welcome.ejs
 
-    ```js
+    ```
     <h1>Welcome to Web CityPairs API demo page!</h1>
 
     <p> current supported APIs </p>
@@ -230,7 +232,7 @@ file name: views/welcome.ejs
 
 ### 11. update file config/routes.js
 
-    ```js
+    ```
     module.exports.routes = {
 
     /***************************************************************************
@@ -247,7 +249,7 @@ file name: views/welcome.ejs
         view: 'welcome'
     }
     
-    , '/v0/citypairs/airfares': 'CityPairsMasterController.airfares' 
+    , '/travel/citypairs/v0/airfares': 'CityPairsMasterController.airfares' 
 
 
     /***************************************************************************
@@ -262,32 +264,84 @@ file name: views/welcome.ejs
 
     };
     ```
+###12. update config/cors.js
+```
+module.exports.cors = {
 
-###12. login to fr.cloud.gov
+  /***************************************************************************
+  *                                                                          *
+  * Allow CORS on all routes by default? If not, you must enable CORS on a   *
+  * per-route basis by either adding a "cors" configuration object to the    *
+  * route config, or setting "cors:true" in the route config to use the      *
+  * default settings below.                                                  *
+  *                                                                          *
+  ***************************************************************************/
+
+  allRoutes: true,
+
+  /***************************************************************************
+  *                                                                          *
+  * Which domains which are allowed CORS access? This can be a               *
+  * comma-delimited list of hosts (beginning with http:// or https://) or    *
+  * "*" to allow all domains CORS access.                                    *
+  *                                                                          *
+  ***************************************************************************/
+
+  origin: '*',
+
+  /***************************************************************************
+  *                                                                          *
+  * Allow cookies to be shared for CORS requests?                            *
+  *                                                                          *
+  ***************************************************************************/
+
+  credentials: false
+
+  /***************************************************************************
+  *                                                                          *
+  * Which methods should be allowed for CORS requests? This is only used in  *
+  * response to preflight requests (see article linked above for more info)  *
+  *                                                                          *
+  ***************************************************************************/
+
+  // methods: 'GET, POST, PUT, DELETE, OPTIONS, HEAD',
+
+  /***************************************************************************
+  *                                                                          *
+  * Which headers should be allowed for CORS requests? This is only used in  *
+  * response to preflight requests.                                          *
+  *                                                                          *
+  ***************************************************************************/
+
+  // headers: 'content-type'
+
+};
+```
+###13. login to fr.cloud.gov
 ```
  cf login -a api.fr.cloud.gov --sso
 ```
 
-###13. setup cloud.gov target.
+###14. setup cloud.gov target.
 ```
 cf target -o gsa-cto -s sandbox
 ```
           
-###14. push the application to the cloud
+###15. push the application to the cloud
 ```
 cf push
 ```
 
 At this point, the database is not yet ready. We need to create schema and load data.
     
-###15. login to cloud bash console
+###16. login to cloud bash console
 ```
 cf org gsa-cto
 cf login -a api.fr.cloud.gov --sso
 cf ssh citypairsapi
 ```
 
-###16. in the cloud console, set environment first.
+###17. in the cloud console, set environment first.
 
 In the cloud ssh shell, you need to source file "setnodepath" to set shell invironment variable of PATH.
 
@@ -305,13 +359,13 @@ The contents of setnodepath is as following.
 export PATH=$PATH:$(find `pwd` -name node|grep 'bin/node'|sed 's/\/node$//')
 ```
 
-###17. In cloud console, create tables cityPairsRawData and cityPairsMaster using utility code run_sql_file.js.
+###18. In cloud console, create tables cityPairsRawData and cityPairsMaster using utility code run_sql_file.js.
 
 ```
 node run_sql_file.js cityPairsRawData_tables.sql
 ```
 
-###18. In cloud console, load data to table cityPairsRawData.
+###19. In cloud console, load data to table cityPairsRawData.
 
 Before the load, we need to inspect the data integrity with spreedsheet.
 The table names are case sensitive in Linux server.
@@ -322,13 +376,13 @@ node load_data_to_mysql.js cityPairsRawData award2016.csv
 node load_data_to_mysql.js cityPairsRawData award2017.csv
 ```
 
-###19. In cloud console, reformat the raw data and load to table cityPairsMaster.
+###20. In cloud console, reformat the raw data and load to table cityPairsMaster.
 
 ```
 node run_sql_file.js cityPairsMaster.sql
 ```
 
-###20. In cloud console, check how many rows have loaded.
+###21. In cloud console, check how many rows have loaded.
 
 ```
 vcap@79f0bf19-c8ce-402e-427a-eb2a92f20f6d:~/app$ 
@@ -337,4 +391,4 @@ select count(*) from cityPairsMaster
 [ TextRow { 'count(*)': 33160 } ]
 ```
 
-###21. Test the web server with a web browser.
+###22. Test the web server with a web browser.
