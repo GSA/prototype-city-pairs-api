@@ -14,7 +14,7 @@ In this document, I use the following setups.
 	Code base directory: c:/home
 	Node version: v6.9.0    // you can use the latest version.
 	npm version: 3.10.9
-	cf version: 6.19
+	cf version: 6.23         // required version is 6.22 and up.
 	Editor: Visual Studio Code, https://code.visualstudio.com/
 
 ###Install sailsjs:
@@ -24,17 +24,19 @@ In this document, I use the following setups.
 	sails new testProject
 ```
 
-	A project directory testProject is created under directory c:/home. To test the installation on your local computer, use the following commands:
+A project directory testProject is created under directory c:/home. To test the installation on your local computer, use the following commands:
+
 ```
 	cd testProject
 	sails lift
 ```
-	start a web browser and visit the address: http://localhost:1337/
+start a web browser and visit the address: http://localhost:1337/
     
 ## push to cloud
 
-	In order to push this code to cloud.gov, we need to create two more files, Procfile and manifest.yml.
-	Procfile (with capital P) have one line.
+In order to push this code to cloud.gov, we need to create two more files, Procfile and manifest.yml.
+
+Procfile (with capital P) have one line.
 
 The contents of file **Profile**
 ```
@@ -78,10 +80,6 @@ Targeted org sandbox-gsa
 
 Targeted space jim.pang
 
-
-Cloud Foundry API version 2.68.0 requires CLI version 6.22.2.  You are currently on version 6.19.0+b29b4e0. To upgrade your CLI, please visit: https://github.com/cloudfoundry/cli#downloads
-
-
 API endpoint:   https://api.fr.cloud.gov (API version: 2.68.0)
 User:           jim.pang@gsa.gov
 Org:            sandbox-gsa
@@ -97,7 +95,7 @@ now, your are ready to push the application to cloud.gov.
 		cf push
 ```
 
-	After the push, you can test the web server with url firstsails.apps.cloud.gov
+After the push, you can test the web server with url firstsails.apps.cloud.gov
 
 ##url note
 If the application name 'firstsails' is unique in the whole cloud, the url firstsails.apps.cloud.gov 

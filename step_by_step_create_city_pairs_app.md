@@ -169,6 +169,7 @@ var util = require('util');
 
 module.exports = {
 	airfares: function(req, res) {
+        res.set({'Content-Type': 'charset=utf-8'});
         var filter = {
             award_year: req.param('award_year'),
             origin_airport_abbrev: req.param('origin_airport_abbrev'),

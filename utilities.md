@@ -6,9 +6,9 @@
 4. load_data_to_mysql.js
 
 ## login to cloud bash console
-'''
+```
 cf ssh citypairsapi
-'''
+```
 
 ## setnodepath
 
