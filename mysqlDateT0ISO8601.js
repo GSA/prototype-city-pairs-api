@@ -1,17 +1,36 @@
 function mysqlDateToISO8601(obj) {
-    var ret = {};
-    var mysqlDate = /(\d{4}-\d\d-\d\d)T\d\d:\d\d:\d\d\.\d{3}Z/;
     for (var k in obj) {
-        var v = obj[k].replace(mysqlDate, '$1');
-        ret[k] = v;
+        if( obj[k] instanceof Date) {
+            obj[k] = format_date(obj[k]);
+        }
     }
-    return ret;
 }
+
+var d = new Date();
+console.log(d.toJSON());
 
 var data = {
- k1:    'abc2015-09-30T00:00:00.000Zdef',
- k2:    '1232015-09-30T00:00:00.000Z456'
+ k1:    d,
+ k2:    new Date()
 }
 
-var n = mysqlDateToISO8601(data);
-console.log(n);
+mysqlDateToISO8601(data);
+console.log(data);
+
+
+function format_date (d) {
+    function pad(number) {
+      if (number < 10) {
+        return '0' + number;
+      }
+      return number;
+    }
+    
+     return d.getUTCFullYear() +
+        '-' + pad(d.getUTCMonth() + 1) +
+        '-' + pad(d.getUTCDate()) +
+        'T' + pad(d.getUTCHours()) +
+        ':' + pad(d.getUTCMinutes()) +
+        ':' + pad(d.getUTCSeconds()) +
+        'Z';
+}

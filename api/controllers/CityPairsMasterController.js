@@ -7,15 +7,34 @@
 
 
 var util = require('util');
-var mysqlDateToISO8601 = function (obj) {
+
+function mysqlDateToGSA(obj) {
+    function format_date (d) {
+        function pad(number) {
+        if (number < 10) {
+            return '0' + number;
+        }
+        return number;
+        }
+    
+     return d.getUTCFullYear() +
+        '-' + pad(d.getUTCMonth() + 1) +
+        '-' + pad(d.getUTCDate()) +
+        'T' + pad(d.getUTCHours()) +
+        ':' + pad(d.getUTCMinutes()) +
+        ':' + pad(d.getUTCSeconds()) +
+        'Z';
+    }
     var ret = {};
-    var mysqlDate = /(\d{4}-\d\d-\d\d)T\d\d:\d\d:\d\d\.\d{3}Z/;
     for (var k in obj) {
-        var v = obj[k].replace(mysqlDate, '$1');
-        ret[k] = v;
+        if( obj[k] instanceof Date) {
+            ret[k] = format_date(obj[k]);
+        } else {
+            ret[k] = obj[k];
+        }
     }
     return ret;
-};
+}
 
 module.exports = {
 	airfares: function(req, res) {
@@ -31,7 +50,7 @@ module.exports = {
                 return res.json({error:  
                     {
                         message: 'need all three parameters: award_year, origin_airport_abbrev, destination_airport_abbrev',
-                        errcode: 'miss required parameters',
+                        // errcode: 'miss required parameters',
                         required_fields: 'award_year, origin_airport_abbrev, destination_airport_abbrev',
                         example: '/v0/citypairs/airfares?award_year=2015&origin_airport_abbrev=abq&destination_airport_abbrev=BWI'
                     }
@@ -43,13 +62,6 @@ module.exports = {
         
         CityPairsMaster.find(filter).exec(
             function(err, results) {
-                /*
-                var mysqlDate = /(\d{4}-\d\d-\d\d)T\d\d:\d\d:\d\d\.\d{3}Z/;
-                for (var k of ['EFFECTIVE_DATE', 'EXPIRATION_DATE']) {
-                    var v = results[k].toString();
-                    results[k] = v.replace(mysqlDate, '$1');
-                }
-                */
                 return res.json({result: results, error: err});
             }
         )
@@ -66,7 +78,7 @@ module.exports = {
                 return res.json({error:  
                     {
                         message: 'need all three parameters: award_year, origin_airport_abbrev, destination_airport_abbrev',
-                        errcode: 'miss required parameters',
+                        // errcode: 'miss required parameters',
                         required_fields: 'award_year, origin_airport_abbrev, destination_airport_abbrev',
                         example: '/v0/citypairs/airfares?award_year=2015&origin_airport_abbrev=abq&destination_airport_abbrev=BWI'
                     }
@@ -78,8 +90,8 @@ module.exports = {
         
         CityPairsMaster.find(filter).exec(
             function(err, results) {
-                console.log(results);
-                return res.json({result: results, error: err});
+                var ret = mysqlDateToGSA(results);
+                return res.json({result: ret, error: err});
             }
         )
     }
