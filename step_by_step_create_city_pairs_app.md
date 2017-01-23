@@ -36,18 +36,21 @@ Using powershell on local machine
 1. start the application. "sails lift"
 1. start your web browser to verify your installation. The url is “localhost:3000”.
 1. add engines entry to file package.json.
+
     ```
     "engines": {
         "node": "7.x.x"
     },
     ```
 1. add two node modules mysql2 and sails-mysql.
+
     ```
     npm install --save mysql2
     npm install --save sails-mysql 
     ``` 
 ###4. prepare for cloud.gov.
-..1. In prototype-city-pairs-api directory, create file Procfile with one line in it.
+1. In prototype-city-pairs-api directory, create file Procfile with one line in it.
+
     ```
     web: node app.js
     ```
@@ -70,6 +73,7 @@ The services section indicates the database cityPairDB will bind to this applica
 ###5. setup MySql database connection information in Sails.js.
 1. open file config/connections.js
 1. add the following code in the top of this file
+
     ```
     //---------------------------------
     function getDbConnObj(name) {
@@ -95,6 +99,7 @@ The services section indicates the database cityPairDB will bind to this applica
     ```
 
 1. add the following line to the MySQL section of this file
+
     ```
     //------------------------------------------------
     cityPairsMySQL: db_cred
@@ -103,6 +108,7 @@ The services section indicates the database cityPairDB will bind to this applica
 
 1. setup default connection to file config/models.js
 1. add the following line to file config/models.js before the line with 'migration'.
+
     ```
     //----------------------------------------------------------
     connection: 'cityPairsMySQL',
@@ -126,12 +132,14 @@ In this case, we need to turn off autoPK, autoCreatedAt, autoUpdatedAt flags.
     ```
 
 ###7. generate data model CityPairsMaster.
+
 ```
 sails generate api CityPairsMaster
 ```  
 This command generates two files, api/models/CityPairsMaster.js and api/controllers/CityPairsMasterController.js.
    
 ###8. update file api/models/CityPairsMaster.js with the following code:
+
     ```js
     module.exports = {
     tableName: 'cityPairsMaster',
@@ -204,6 +212,7 @@ This command generates two files, api/models/CityPairsMaster.js and api/controll
     ```
 
 ### 10. create home page for this project
+
 file name: views/welcome.ejs
 
     ```js
