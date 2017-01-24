@@ -57,6 +57,7 @@ Using powershell on local machine
     web: node app.js
     ```
 1. create file *manifest.yml*.  
+
     ```
     ---
     applications:
@@ -142,76 +143,77 @@ This command generates two files, api/models/CityPairsMaster.js and api/controll
    
 ###8. update file api/models/CityPairsMaster.js with the following code:
 
-    ```
-    module.exports = {
-    tableName: 'cityPairsMaster',
-    
-    attributes: {
-        ID : { type: 'integer' },
-        ITEM_NUM : { type: 'string' },
-        AWARD_YEAR : { type: 'string' },
-        ORIGIN_AIRPORT_ABBREV : { type: 'string' },
-        DESTINATION_AIRPORT_ABBREV : { type: 'string' },
-        ORIGIN_CITY_NAME : { type: 'string' },
-        ORIGIN_STATE : { type: 'string' },
-        ORIGIN_COUNTRY : { type: 'string' }, 
-        DESTINATION_CITY_NAME : { type: 'string'},
-        DESTINATION_STATE : { type: 'string'},
-        DESTINATION_COUNTRY	: { type: 'string'},
-        AIRLINE_ABBREV : { type: 'string' },
-        AWARDED_SERV : { type: 'string' },
-        PAX_COUNT : { type: 'string' },
-        YCA_FARE : { type: 'integer'},
-        XCA_FARE : { type: 'integer'},
-        BUSINESS_FARE : { type: 'integer'},
-        ORIGIN_AIRPORT_LOCATION : { type: 'string'},
-        DESTINATION_AIRPORT_LOCATION : { type: 'string'},
-        ORIGIN_CITY_STATE_AIRPORT : { type: 'string'},
-        DESTINATION_CITY_STATE_AIRPORT : { type: 'string'},
-        EFFECTIVE_DATE : { type: 'date' },
-        EXPIRATION_DATE : { type: 'date' }
-    }
-    };
-    ```
+```
+module.exports = {
+tableName: 'cityPairsMaster',
+
+attributes: {
+    ID : { type: 'integer' },
+    ITEM_NUM : { type: 'string' },
+    AWARD_YEAR : { type: 'string' },
+    ORIGIN_AIRPORT_ABBREV : { type: 'string' },
+    DESTINATION_AIRPORT_ABBREV : { type: 'string' },
+    ORIGIN_CITY_NAME : { type: 'string' },
+    ORIGIN_STATE : { type: 'string' },
+    ORIGIN_COUNTRY : { type: 'string' }, 
+    DESTINATION_CITY_NAME : { type: 'string'},
+    DESTINATION_STATE : { type: 'string'},
+    DESTINATION_COUNTRY	: { type: 'string'},
+    AIRLINE_ABBREV : { type: 'string' },
+    AWARDED_SERV : { type: 'string' },
+    PAX_COUNT : { type: 'string' },
+    YCA_FARE : { type: 'integer'},
+    XCA_FARE : { type: 'integer'},
+    BUSINESS_FARE : { type: 'integer'},
+    ORIGIN_AIRPORT_LOCATION : { type: 'string'},
+    DESTINATION_AIRPORT_LOCATION : { type: 'string'},
+    ORIGIN_CITY_STATE_AIRPORT : { type: 'string'},
+    DESTINATION_CITY_STATE_AIRPORT : { type: 'string'},
+    EFFECTIVE_DATE : { type: 'date' },
+    EXPIRATION_DATE : { type: 'date' }
+}
+};
+```
 
 
 ###9. update file api/controllers/CityPairsMasterController.js with the following code:
 
-    ```
-    var util = require('util');
+```
+var util = require('util');
 
-    module.exports = {
-        airfares: function(req, res) {
-            res.set({'Content-Type': 'application/json; charset=utf-8'});
-            var filter = {
-                award_year: req.param('award_year'),
-                origin_airport_abbrev: req.param('origin_airport_abbrev'),
-                destination_airport_abbrev: req.param('destination_airport_abbrev')
-            };
-            
-            for ( var k in filter) {
-                if ( filter[k] == null || filter[k] == '') {
-                    return res.json({error:  
-                        {
-                            message: 'need all three parameters: award_year, origin_airport_abbrev, destination_airport_abbrev',
-                            errcode: 'miss required parameters',
-                            required_fields: 'award_year, origin_airport_abbrev, destination_airport_abbrev',
-                            example: '/v0/citypairs/airfares?award_year=2015&origin_airport_abbrev=abq&destination_airport_abbrev=BWI'
-                        }
-                    })
-                } else {
-                    filter[k] = filter[k].toUpperCase();
-                }
-            };
-            
-            CityPairsMaster.find(filter).exec(
-                function(err, results) {
-                    return res.json({result: results, error: err});
-                }
-            )
-        }
-    };
-    ```
+module.exports = {
+    airfares: function(req, res) {
+        res.set({'Content-Type': 'application/json; charset=utf-8'});
+        var filter = {
+            award_year: req.param('award_year'),
+            origin_airport_abbrev: req.param('origin_airport_abbrev'),
+            destination_airport_abbrev: req.param('destination_airport_abbrev')
+        };
+        
+        for ( var k in filter) {
+            if ( filter[k] == null || filter[k] == '') {
+                res.status(400); // 400 Bad Request
+                return res.json({error:  
+                    {
+                        message: 'need all three parameters: award_year, origin_airport_abbrev, destination_airport_abbrev',
+                        errcode: 'miss required parameters',
+                        required_fields: 'award_year, origin_airport_abbrev, destination_airport_abbrev',
+                        example: '/v0/citypairs/airfares?award_year=2015&origin_airport_abbrev=abq&destination_airport_abbrev=BWI'
+                    }
+                })
+            } else {
+                filter[k] = filter[k].toUpperCase();
+            }
+        };
+        
+        CityPairsMaster.find(filter).exec(
+            function(err, results) {
+                return res.json({result: results, error: err});
+            }
+        )
+    }
+};
+```
 
 ### 10. create home page for this project
 

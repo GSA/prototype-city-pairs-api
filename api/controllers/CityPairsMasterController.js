@@ -20,6 +20,7 @@ module.exports = {
         
         for ( var k in filter) {
             if ( filter[k] == null || filter[k] == '') {
+                res.status(400); // 400 Bad Request
                 return res.json({error:  
                     {
                         message: 'need all three parameters: award_year, origin_airport_abbrev, destination_airport_abbrev',

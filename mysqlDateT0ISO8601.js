@@ -1,4 +1,20 @@
-function mysqlDateToISO8601(obj) {
+function mysqlDateToGSA(obj) {
+    function format_date (d) {
+        function pad(number) {
+        if (number < 10) {
+            return '0' + number;
+        }
+        return number;
+        }
+    
+     return d.getUTCFullYear() +
+        '-' + pad(d.getUTCMonth() + 1) +
+        '-' + pad(d.getUTCDate()) +
+        'T' + pad(d.getUTCHours()) +
+        ':' + pad(d.getUTCMinutes()) +
+        ':' + pad(d.getUTCSeconds()) +
+        'Z';
+    }
     for (var k in obj) {
         if( obj[k] instanceof Date) {
             obj[k] = format_date(obj[k]);
