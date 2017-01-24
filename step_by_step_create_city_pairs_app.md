@@ -228,7 +228,7 @@ file name: views/welcome.ejs
 <li>/v0/citypairs/airfares<li>
 </ul>
 <pre>
-example: '/v0/citypairs/airfares?award_year=2015&origin_airport_abbrev=abq&destination_airport_abbrev=BWI'
+example: '/travel/citypairs/v0/airfares?award_year=2015&origin_airport_abbrev=abq&destination_airport_abbrev=BWI'
     </pre>
 ```
 

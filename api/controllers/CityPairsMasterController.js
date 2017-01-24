@@ -12,6 +12,8 @@ var util = require('util');
 module.exports = {
 	airfares: function(req, res) {
         res.set({'Content-Type': 'application/json; charset=utf-8'});
+        res.header("Access-Control-Allow-Origin", "*"); 
+        res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
         var filter = {
             award_year: req.param('award_year'),
             origin_airport_abbrev: req.param('origin_airport_abbrev'),
