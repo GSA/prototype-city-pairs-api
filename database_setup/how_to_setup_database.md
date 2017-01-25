@@ -8,13 +8,13 @@ In this project, the data is predefined. Before this application on live, we nee
 
 ##What we have
 1. datafiles:
-..1. award2015.csv
-..1. award2016.csv
-..1. award2017.csv
+    award2015.csv
+    award2016.csv
+    award2017.csv
 1. utility programs:
-..1. run_sql_file.js
-..1. run_sql.js
-..1. load_data_to_mysql.js
+    run_sql_file.js
+    run_sql.js
+    load_data_to_mysql.js
 
 ###1. login to cloud bash console
 ```

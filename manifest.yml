@@ -1,6 +1,6 @@
 ---
 applications:
-- name: cityPairsAPI
+- name: cityPairsAPI_jpang
   memory: 512M  
 env:  
   NODE_ENV: development
