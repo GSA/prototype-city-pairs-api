@@ -1,0 +1,15 @@
+{
+  "name": "database_setup",
+  "version": "1.0.0",
+  "description": "During the development phase of a project, the database schema and referrential data are build gradully.\r When a project is ready to release to production, you either have an empty database or a non-empty database.\r In this case, you have to perform database migration manually.\r In this project, the data is predefined. Before this application on live, we need to create database schema and load data first.",
+  "main": "load_data_to_mysql.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "csv-string": "^2.3.0",
+    "mysql2": "^1.1.2"
+  }
+}
