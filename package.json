@@ -8,6 +8,7 @@
     "node": "7.x.x"
   },
   "dependencies": {
+    "csv-string": "^2.3.0",
     "ejs": "2.3.4",
     "grunt": "1.0.1",
     "grunt-contrib-clean": "1.0.0",

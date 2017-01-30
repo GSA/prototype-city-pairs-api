@@ -17,17 +17,20 @@ const blank = /^$/;
 const emptyStringAsNull = 0;
 const trimString = 1;
 
+const local_db_url = "mysql2://citypairs:citypairs8pass@localhost:3306/citypairsdb";
+
 const table_name = process.argv[2];
 const data_file  = process.argv[3];
-const db_url = process.env.DATABASE_URL;
+// const db_url = process.env.DATABASE_URL;
 
 const log = console.log;
 
-process_data_file(db_url, table_name, data_file);
+process_data_file(table_name, data_file);
 
-function process_data_file(db_url, table_name, data_file){
+function process_data_file(table_name, data_file){
     const procEE = new EventEmitter();
     var dbConn;
+    var db_url;
     
     procEE.on('start', connectDB);
     procEE.on('dbConnected', process_data_file);
@@ -38,6 +41,11 @@ function process_data_file(db_url, table_name, data_file){
     start();
     
     function start() {
+        if('DATABASE_URL' in process.env) {
+            db_url = process.env.DATABASE_URL;
+        } else {
+            db_url = local_db_url;
+        }
         procEE.emit('start');
     }
     
@@ -98,7 +106,7 @@ function process_one_file(dbConn, table_name, data_file, truncate, callBack) {
     data_info.encoding = 'ascii';
     data_info.buffer_size = 1024 * 1024; // 1 MB buffer
     data_info.total_bytes = 0;
-    data_info.data_buffer = new Buffer(data_info.buffer_size, data_info.encoding);
+    data_info.data_buffer = Buffer.alloc(data_info.buffer_size, 0, data_info.encoding);
     data_info.to_be_end = 0;
     data_info.line_buffer = '';
     data_info.data_lines = null;
@@ -249,7 +257,9 @@ function process_one_file(dbConn, table_name, data_file, truncate, callBack) {
                 }
                 dds = null;
                 data_info.affected_rows += res.affectedRows;
-                ()=>{console.log('rows affected:', data_info.affected_rows, res.affectedRows)}();
+                function l() {
+                    console.log('rows affected:', data_info.affected_rows, res.affectedRows)}
+                l();
                 oneFileEE.emit('dataLoaded');
             } 
         );

@@ -10,6 +10,8 @@ if (process.argv.length < 3) {
   process.exit(1);
 }
 
+var local_db_url = "mysql2://citypairs:citypairs8pass@localhost:3306/citypairsdb";
+
 run_process();
 
 function run_process() {
@@ -17,6 +19,7 @@ function run_process() {
     var query;
     var dbConn;
     var results;
+    var db_url;
     
     procEE.on('start', getSQLData);
     procEE.on('gotQuery', connectDB);
@@ -28,6 +31,11 @@ function run_process() {
     start();
     
     function start() {
+        if('DATABASE_URL' in process.env) {
+            db_url = process.env.DATABASE_URL;
+        } else {
+            db_url = local_db_url;
+        }
         procEE.emit('start');
     }
     
@@ -55,7 +63,6 @@ function run_process() {
     }
     
     function connectDB() {
-        var db_url = process.env.DATABASE_URL;
         var conn = mysql.createConnection(db_url+'?multipleStatements=true');
         conn.connect((e)=>{
             if(e) procEE.emit('error', e);

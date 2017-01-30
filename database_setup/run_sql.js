@@ -10,6 +10,8 @@ if (process.argv.length < 3) {
   process.exit(1);
 }
 
+var local_db_url = "mysql2://citypairs:citypairs8pass@localhost:3306/citypairsdb";
+
 run_process();
 
 function run_process() {
@@ -50,7 +52,12 @@ function run_process() {
     }
     
     function connectDB() {
-        var db_url = process.env.DATABASE_URL;
+        var db_url;
+        if('DATABASE_URL' in process.env) {
+            db_url = process.env.DATABASE_URL;
+        } else {
+            db_url = local_db_url;
+        }
         var conn = mysql.createConnection(db_url+'?multipleStatements=true');
         conn.connect((e)=>{
             if(e) procEE.emit('error', e);

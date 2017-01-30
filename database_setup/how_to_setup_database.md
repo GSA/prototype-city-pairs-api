@@ -3,23 +3,32 @@
 During the development phase of a project, the database schema and referrential data are build gradully.
 When a project is ready to release to production, you either have an empty database or a non-empty database.
 In this case, you have to perform database migration manually.
-In this project, the data is predefined. Before this application on live, we need to creat database schema and load data first.
+In this project, the data is predefined. Before this application on live, we need to create database schema and load data first.
 
 
 ##What we have
-1. datafiles:
+###1. datafiles:
+
 ```
     award2015.csv
     award2016.csv
     award2017.csv
 ```
-1. utility programs:
+###2. utility programs:
+
 ```
     run_sql_file.js
     run_sql.js
     load_data_to_mysql.js
 ```
 
+###3. SQL files:
+```
+cityPairsRawData_tables.sql
+cityPairsMaster.sql
+```
+
+##Steps to create database schema and load data
 ###1. login to cloud bash console
 ```
 cf org gsa-cto
