@@ -18,25 +18,6 @@
  * For more information on configuration, check out:
  * http://sailsjs.org/#!/documentation/reference/sails.config/sails.config.connections.html
  */
-  function getDbConnObj(name) {
-      var cred = JSON.parse(process.env.VCAP_SERVICES)
-              ['aws-rds']
-              .filter((e)=>{return e.name == name;})
-              [0]
-              .credentials;	
-
-      return {
-        adapter: 'sails-mysql',
-        host: cred.host,
-        user: cred.username,
-        password: cred.password,
-        database: cred.db_name,
-        port: parseInt(cred.port)
-      };
-    };
-  
-  var db_name = process.env.DB_NAME;
-  var db_cred = getDbConnObj(db_name);
   
 module.exports.connections = {
 
@@ -49,7 +30,7 @@ module.exports.connections = {
   ***************************************************************************/
   localDiskDb: {
     adapter: 'sails-disk'
-  },
+  }
 
   /***************************************************************************
   *                                                                          *
@@ -67,7 +48,37 @@ module.exports.connections = {
   //   database: 'YOUR_MYSQL_DB' //optional
   // },
 
-cityPairsMySQL: db_cred
+  ,localMySQL: {
+        adapter: 'sails-mysql',
+        host: 'localhost',
+        user: 'citypairs',
+        password: 'citypairs8pass',
+        database: 'citypairsdb',
+        port: 3306
+  }
+  
+  ,cloudMySQL: (function() {
+      if('VCAP_SERVICES' in process.env) {
+        var name = process.env.DB_NAME;
+        var cred = JSON.parse(process.env.VCAP_SERVICES)
+              ['aws-rds']
+              .filter((e)=>{return e.name == name;})
+              [0]
+              .credentials;	
+
+        return {
+          adapter: 'sails-mysql',
+          host: cred.host,
+          user: cred.username,
+          password: cred.password,
+          database: cred.db_name,
+          port: parseInt(cred.port)
+        };
+      } else {
+        return {};
+      }
+  })()
+
 
   /***************************************************************************
   *                                                                          *
