@@ -64,6 +64,70 @@ module.exports = {
                 return res.json({result: results, error: err});
             }
         )
+    },
+     airfares_with_id: function(req, res) {
+
+        console.log('Entering airfares_with_id');   
+        res.set({'Content-Type': 'application/json; charset=utf-8'});
+        res.header("Access-Control-Allow-Origin", "*"); 
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+
+        //if there is no ID
+        if ( req.param('id') == null ||  req.param('id') == '') {
+        //put the other parameters in the filter
+            var filter = {
+                award_year: req.param('award_year').toUpperCase(),
+                origin_airport_abbrev: req.param('origin_airport_abbrev').toUpperCase(),
+                destination_airport_abbrev: req.param('destination_airport_abbrev').toUpperCase()
+            };
+
+        }
+        //if there ID an ID
+        else {
+            //put the ID alone in the filter
+            //todo: determine what happens if ID is sent with other parms
+            console.log('The value of ID = ' + req.param('id')); 
+                    
+            /*var filter = {
+                //yca_fare: parseInt(req.param('id')) //this worked -- think it is just the primary key that's a problem
+                id: req.param('id')
+            };*/
+
+        }
+
+        
+        
+        //this code makes params required, but we're removing that
+        /*for ( var k in filter) {
+            if ( filter[k] == null || filter[k] == '') {
+                res.status(400); // 400 Bad Request
+                return res.json({error:  
+                    {
+                        message: 'need all three parameters: award_year, origin_airport_abbrev, destination_airport_abbrev',
+                        // errcode: 'miss required parameters',
+                        required_fields: 'award_year, origin_airport_abbrev, destination_airport_abbrev',
+                        example: '/v0/citypairs/airfares?award_year=2015&origin_airport_abbrev=abq&destination_airport_abbrev=BWI'
+                    }
+                })
+            } else {
+                filter[k] = filter[k].toUpperCase();
+            }
+        };*/
+
+        /*CityPairsMaster.find(filter).exec(
+            function(err, results) {
+                return res.json({result: results, error: err});
+            }
+*/
+            //CityPairsMaster.find(req.param('id')).exec(
+            //CityPairsMaster.find(parseInt(req.param('id'))).exec(
+             console.log('Running query command'); 
+            CityPairsMaster.query('Select * from cityPairsMaster where ID = ?',[req.param('id')],
+            function(err, rawResult) {
+                
+                return res.json({result: rawResult, error: err});
+            }
+        )
     }
 };
 
