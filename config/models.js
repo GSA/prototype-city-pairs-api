@@ -19,7 +19,15 @@ module.exports.models = {
   ***************************************************************************/
   // connection: 'localDiskDb',
   
-  connection: 'cityPairsMySQL',
+  // connection: 'cityPairsMySQL',
+  
+   connection: (function() {
+      if('VCAP_SERVICES' in process.env) {
+        return 'cloudMySQL'
+      } else {
+        return 'localMySQL'
+      }
+   })(),
 
 
   /***************************************************************************
