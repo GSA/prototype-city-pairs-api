@@ -44,7 +44,6 @@ module.exports = {
 
         if( flag_ori == 0 && flag_des == 0) {
             errMsg = errMsg + "at least one of parameter(origin_airport_abbrev or destination_airport_abbrev) should be provided."
-            console.log(errMsg);
             error ++;
         }
         
