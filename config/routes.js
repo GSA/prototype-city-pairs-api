@@ -37,7 +37,7 @@ module.exports.routes = {
   }
   
   , '/travel/citypairs/v0/airfares': 'CityPairsMasterController.airfares' 
-    ,'/travel/citypairs/v0/airfares/:id': 'CityPairsMasterController.airfares_with_id' 
+  , '/travel/citypairs/v0/airfares/:id': 'CityPairsMasterController.airfares_with_id' 
 
   /***************************************************************************
   *                                                                          *

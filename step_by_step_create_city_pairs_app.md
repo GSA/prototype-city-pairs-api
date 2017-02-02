@@ -3,7 +3,8 @@
 Special note to this project: In this project, not like other Sailsjs project, the database schema 
 is predefined and the data is preloaded. We have developed tools to load schema and data.
 
-1. create mysql database on the cloud.
+1. create DB
+ database on the cloud.
 2. create Sailjs application.
 3. deploy application to cloud.
 4. create database schema.
@@ -20,9 +21,10 @@ Using powershell on local machine
 
 
 ##Steps:
-###1. create mysql service on organization 'gsa-cto' and space 'sandbox'.
+###1. create DB
+ service on organization 'gsa-cto' and space 'sandbox'.
 1. click the "Add a new service instance" button.
-1. choose service plan "shared-mysql", and click "create service instance" button.
+1. choose service plan "shared-DB", and click "create service instance" button.
 1. Enter name of this service. i.e. "cityPairsAPI". Choose space "sandbox". click "create service instance" button.
 1. We will update manifest.yml with this service name later.
     
@@ -42,11 +44,15 @@ Using powershell on local machine
         "node": "7.x.x"
     },
     ```
-1. add two node modules mysql2 and sails-mysql.
+1. add two node modules DB
+2 and sails-DB
+.
 
     ```
-    npm install --save mysql2
-    npm install --save sails-mysql 
+    npm install --save DB
+2
+    npm install --save sails-DB
+ 
     ```
 
 ###4. prepare for cloud.gov.
@@ -73,48 +79,54 @@ Using powershell on local machine
 Here, we defined an invironment variable *DB_NAME*. Application will use this variable to find database to connect.
 The services section indicates the database cityPairDB will bind to this application.
         
-###5. setup MySql database connection information in Sails.js.
+###5. setup DB
+ database connection information in Sails.js.
 1. open file config/connections.js
-1. add the following code in the top of this file
-
+1. add the following connection entry.
     ```
-    //---------------------------------
-    function getDbConnObj(name) {
-        var cred = JSON.parse(process.env.VCAP_SERVICES)
-                ['aws-rds']
-                .filter((e)=>{return e.name == name;})
-                [0]
-                .credentials;	
+    ,cityPairsDB: ( function () {
+      var db_url;
+      if('DATABASE_URL' in process.env) {
+          db_url = process.env.DATABASE_URL;
+      } else {
+          db_url = '';
+          throw new Error('environment variable DATABASE_URL was not found!');
+          return {};
+      }
 
-        return {
-            adapter: 'sails-mysql',
-            host: cred.host,
-            user: cred.username,
-            password: cred.password,
-            database: cred.db_name,
-            port: parseInt(cred.port)
-        };
-        };
-    
-    var db_name = process.env.DB_NAME;
-    var db_cred = getDbConnObj(db_name);
-    //----------------------------------------
-    ```
+      // db_url example:  "DB
+2://user:pass@localhost:3306/dbname";
+      var url_reg = /(DB
+.*):\/\/(.*):(.*)@(.*):(.*)\/(.*)/;
 
-1. add the following line to the MySQL section of this file
+      var usr_obj = db_url.match(url_reg);
+      if( usr_obj == null) {
+          throw new Error('environment variable DATABASE_URL was malformed!');
+          return {};
+      }
 
-    ```
-    //------------------------------------------------
-    cityPairsMySQL: db_cred
-    //-----------------------------------------------
-    ```
+      var db = {
+        adapter : 'sails-DB
+',
+        user : usr_obj[2],
+        password : usr_obj[3],
+        host : usr_obj[4],
+        port : parseInt(usr_obj[5]),
+        database : usr_obj[6]
+      };
+      
+      console.log(db);
+      return db;
+  })()
+```
 
 1. setup default connection to file config/models.js
 1. add the following line to file config/models.js before the line with 'migration'.
 
     ```
     //----------------------------------------------------------
-    connection: 'cityPairsMySQL',
+    connection: 'cityPairsDB
+',
     //----------------------------------------------------------
     ```
 
@@ -125,7 +137,8 @@ In this case, we need to turn off autoPK, autoCreatedAt, autoUpdatedAt flags.
 ```
 module.exports.models = {
 
-connection: 'cityPairsMySQL',
+connection: 'cityPairsDB
+',
 migrate: 'safe',
 
 autoPK: false,
@@ -182,37 +195,101 @@ attributes: {
 var util = require('util');
 
 module.exports = {
-    airfares: function(req, res) {
+    	airfares: function(req, res) {
         res.set({'Content-Type': 'application/json; charset=utf-8'});
-        var filter = {
-            award_year: req.param('award_year'),
-            origin_airport_abbrev: req.param('origin_airport_abbrev'),
-            destination_airport_abbrev: req.param('destination_airport_abbrev')
-        };
+        res.header("Access-Control-Allow-Origin", "*"); 
+        res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
         
-        for ( var k in filter) {
-            if ( filter[k] == null || filter[k] == '') {
+        var award_year = req.param('award_year');
+        var origin_airport_abbrev =  req.param('origin_airport_abbrev');
+        var destination_airport_abbrev = req.param('destination_airport_abbrev');
+        
+        var errMsg = "";
+        var error = 0;
+        var filter = {};
+        var flag_ori = 0;
+        var flag_des = 0;
+        
+        if(award_year == null || award_year == '') {
+            error = 1;
+            errMsg = "require parameter award_year; ";
+        } else {                
+            filter.award_year = award_year;
+        }
+        
+        if(origin_airport_abbrev != null && origin_airport_abbrev != '') {
+            filter.origin_airport_abbrev = origin_airport_abbrev;
+            flag_ori = 1;
+        }
+        
+        if(destination_airport_abbrev != null && destination_airport_abbrev != ''){
+            filter.destination_airport_abbrev = destination_airport_abbrev;
+            flag_des = 1;
+        }
+
+        if( flag_ori == 0 && flag_des == 0) {
+            errMsg = errMsg + "at least one of parameter(origin_airport_abbrev or destination_airport_abbrev) should be provided."
+            error ++;
+        }
+        
+        if( error > 0) {
                 res.status(400); // 400 Bad Request
                 return res.json({error:  
                     {
-                        message: 'need all three parameters: award_year, origin_airport_abbrev, destination_airport_abbrev',
-                        errcode: 'miss required parameters',
-                        required_fields: 'award_year, origin_airport_abbrev, destination_airport_abbrev',
+                        message: errMsg,
+                        // errcode: 'miss required parameters',
+                        required_fields: 'award_year, one_of(origin_airport_abbrev, destination_airport_abbrev)',
                         example: '/v0/citypairs/airfares?award_year=2015&origin_airport_abbrev=abq&destination_airport_abbrev=BWI'
                     }
                 })
-            } else {
-                filter[k] = filter[k].toUpperCase();
-            }
-        };
-        
+        }
+
         CityPairsMaster.find(filter).exec(
             function(err, results) {
                 return res.json({result: results, error: err});
             }
         )
+    },
+     airfares_with_id: function(req, res) {
+
+        console.log('Entering airfares_with_id');   
+        res.set({'Content-Type': 'application/json; charset=utf-8'});
+        res.header("Access-Control-Allow-Origin", "*"); 
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+
+        //if there is no ID
+        if ( req.param('id') == null ||  req.param('id') == '') {
+        //put the other parameters in the filter
+            var filter = {
+                award_year: req.param('award_year').toUpperCase(),
+                origin_airport_abbrev: req.param('origin_airport_abbrev').toUpperCase(),
+                destination_airport_abbrev: req.param('destination_airport_abbrev').toUpperCase()
+            };
+
+        }
+        //if there ID an ID
+        else {
+            //put the ID alone in the filter
+            //todo: determine what happens if ID is sent with other parms
+            console.log('The value of ID = ' + req.param('id')); 
+                    
+            /*var filter = {
+                //yca_fare: parseInt(req.param('id')) //this worked -- think it is just the primary key that's a problem
+                id: req.param('id')
+            };*/
+
+        }
+
+             console.log('Running query command'); 
+            CityPairsMaster.query('Select * from cityPairsMaster where ID = ?',[req.param('id')],
+            function(err, rawResult) {
+                
+                return res.json({result: rawResult, error: err});
+            }
+        )
     }
 };
+
 ```
 
 ### 10. create home page for this project
@@ -228,7 +305,9 @@ file name: views/welcome.ejs
 <li>/v0/citypairs/airfares<li>
 </ul>
 <pre>
-example: '/travel/citypairs/v0/airfares?award_year=2015&origin_airport_abbrev=abq&destination_airport_abbrev=BWI'
+example: 
+'/travel/citypairs/v0/airfares?award_year=2015&origin_airport_abbrev=abq&destination_airport_abbrev=BWI'
+'/travel/citypairs/v0/airfares/10'
     </pre>
 ```
 
@@ -249,10 +328,10 @@ module.exports.routes = {
 
 '/': {
     view: 'welcome'
-}
-
-, '/travel/citypairs/v0/airfares': 'CityPairsMasterController.airfares' 
-
+  }
+  
+  , '/travel/citypairs/v0/airfares': 'CityPairsMasterController.airfares' 
+  , '/travel/citypairs/v0/airfares/:id': 'CityPairsMasterController.airfares_with_id' 
 
 /***************************************************************************
 *                                                                          *
@@ -337,63 +416,9 @@ cf target -o gsa-cto -s sandbox
 cf push
 ```
 
+###16 Setup database schema and load data.
 At this point, the database is not yet ready. We need to create schema and load data.
     
-###16. login to cloud bash console
-```
-cf org gsa-cto
-cf login -a api.fr.cloud.gov --sso
-cf ssh citypairsapi
-```
+Please refer database_setup/readme.md for the setup deatils.
 
-###17. in the cloud console, set environment first.
-
-In the cloud ssh shell, you need to source file "setnodepath" to set shell invironment variable of PATH.
-
-entry and run the following Linux commands in the cloud console.
-
-```
-cd app
-source setnodepath
-node --version
-```
-
-The contents of setnodepath is as following.
-```
-#!/bin/bash
-export PATH=$PATH:$(find `pwd` -name node|grep 'bin/node'|sed 's/\/node$//')
-```
-
-###18. In cloud console, create tables cityPairsRawData and cityPairsMaster using utility code run_sql_file.js.
-
-```
-node run_sql_file.js cityPairsRawData_tables.sql
-```
-
-###19. In cloud console, load data to table cityPairsRawData.
-
-Before the load, we need to inspect the data integrity with spreedsheet.
-The table names are case sensitive in Linux server.
-
-```
-node load_data_to_mysql.js cityPairsRawData award2015.csv
-node load_data_to_mysql.js cityPairsRawData award2016.csv
-node load_data_to_mysql.js cityPairsRawData award2017.csv
-```
-
-###20. In cloud console, reformat the raw data and load to table cityPairsMaster.
-
-```
-node run_sql_file.js cityPairsMaster.sql
-```
-
-###21. In cloud console, check how many rows have loaded.
-
-```
-vcap@79f0bf19-c8ce-402e-427a-eb2a92f20f6d:~/app$ 
-node run_sql.js "select count(*) from cityPairsMaster"
-select count(*) from cityPairsMaster
-[ TextRow { 'count(*)': 33160 } ]
-```
-
-###22. Test the web server with a web browser.
+###17. Test the web server with a web browser.
