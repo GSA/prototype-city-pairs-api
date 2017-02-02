@@ -18,7 +18,8 @@
  * For more information on configuration, check out:
  * http://sailsjs.org/#!/documentation/reference/sails.config/sails.config.connections.html
  */
-  
+
+
 module.exports.connections = {
 
   /***************************************************************************
@@ -48,15 +49,38 @@ module.exports.connections = {
   //   database: 'YOUR_MYSQL_DB' //optional
   // },
 
-  ,localMySQL: {
-        adapter: 'sails-mysql',
-        host: 'localhost',
-        user: 'citypairs',
-        password: 'citypairs8pass',
-        database: 'citypairsdb',
-        port: 3306
-  }
-  
+  ,cityPairsDB: ( function () {
+      var db_url;
+      if('DATABASE_URL' in process.env) {
+          db_url = process.env.DATABASE_URL;
+      } else {
+          db_url = '';
+          throw new Error('environment variable DATABASE_URL was not found!');
+          return {};
+      }
+
+      // db_url example:  "mysql2://user:pass@localhost:3306/dbname";
+      var url_reg = /(mysql.*):\/\/(.*):(.*)@(.*):(.*)\/(.*)/;
+
+      var usr_obj = db_url.match(url_reg);
+      if( usr_obj == null) {
+          throw new Error('environment variable DATABASE_URL was malformed!');
+          return {};
+      }
+
+      var db = {
+        adapter : 'sails-mysql',
+        user : usr_obj[2],
+        password : usr_obj[3],
+        host : usr_obj[4],
+        port : parseInt(usr_obj[5]),
+        database : usr_obj[6]
+      };
+      
+      console.log(db);
+      return db;
+  })()
+
   ,cloudMySQL: (function() {
       if('VCAP_SERVICES' in process.env) {
         var name = process.env.DB_NAME;
@@ -66,7 +90,7 @@ module.exports.connections = {
               [0]
               .credentials;	
 
-        return {
+        var db = {
           adapter: 'sails-mysql',
           host: cred.host,
           user: cred.username,
@@ -74,11 +98,14 @@ module.exports.connections = {
           database: cred.db_name,
           port: parseInt(cred.port)
         };
+        console.log(db);
+        return db;
       } else {
+        console.log('no cloud db');
         return {};
       }
   })()
-
+  
 
   /***************************************************************************
   *                                                                          *
