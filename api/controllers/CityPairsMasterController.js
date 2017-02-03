@@ -69,7 +69,7 @@ module.exports = {
         console.log('Entering airfares_with_id');   
         res.set({'Content-Type': 'application/json; charset=utf-8'});
         res.header("Access-Control-Allow-Origin", "*"); 
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+        res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 
         //if there is no ID
         if ( req.param('id') == null ||  req.param('id') == '') {
@@ -94,32 +94,6 @@ module.exports = {
 
         }
 
-        
-        
-        //this code makes params required, but we're removing that
-        /*for ( var k in filter) {
-            if ( filter[k] == null || filter[k] == '') {
-                res.status(400); // 400 Bad Request
-                return res.json({error:  
-                    {
-                        message: 'need all three parameters: award_year, origin_airport_abbrev, destination_airport_abbrev',
-                        // errcode: 'miss required parameters',
-                        required_fields: 'award_year, origin_airport_abbrev, destination_airport_abbrev',
-                        example: '/v0/citypairs/airfares?award_year=2015&origin_airport_abbrev=abq&destination_airport_abbrev=BWI'
-                    }
-                })
-            } else {
-                filter[k] = filter[k].toUpperCase();
-            }
-        };*/
-
-        /*CityPairsMaster.find(filter).exec(
-            function(err, results) {
-                return res.json({result: results, error: err});
-            }
-*/
-            //CityPairsMaster.find(req.param('id')).exec(
-            //CityPairsMaster.find(parseInt(req.param('id'))).exec(
              console.log('Running query command'); 
             CityPairsMaster.query('Select * from cityPairsMaster where ID = ?',[req.param('id')],
             function(err, rawResult) {

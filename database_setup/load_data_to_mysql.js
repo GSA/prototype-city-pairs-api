@@ -42,7 +42,10 @@ function process_data_file(table_name, data_file){
         if('DATABASE_URL' in process.env) {
             db_url = process.env.DATABASE_URL;
         } else {
-            procEE.emit('error', {error: 'environment variable DATABASE_URL was not found!'});
+            procEE.emit('error', {
+                error: 'environment variable DATABASE_URL was not found!',
+                format: 'mysql2://user:passwd@host:port_number/db_name'
+            });
 	        return;
         }
         procEE.emit('start');
