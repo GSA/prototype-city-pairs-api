@@ -46,6 +46,7 @@ entry and run the following Linux commands in the cloud console.
 cd app
 source setnodepath
 node --version
+cd database_setup
 ```
 
 The contents of setnodepath is as following.

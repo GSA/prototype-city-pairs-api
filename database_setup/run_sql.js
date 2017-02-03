@@ -10,8 +10,6 @@ if (process.argv.length < 3) {
   process.exit(1);
 }
 
-var local_db_url = "mysql2://citypairs:citypairs8pass@localhost:3306/citypairsdb";
-
 run_process();
 
 function run_process() {
@@ -56,7 +54,11 @@ function run_process() {
         if('DATABASE_URL' in process.env) {
             db_url = process.env.DATABASE_URL;
         } else {
-            db_url = local_db_url;
+            procEE.emit('error', {
+                error: 'environment variable DATABASE_URL was not found!',
+                format: 'mysql2://user:passwd@host:port_number/db_name'
+            });
+	        return;
         }
         var conn = mysql.createConnection(db_url+'?multipleStatements=true');
         conn.connect((e)=>{
