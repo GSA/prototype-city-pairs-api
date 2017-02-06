@@ -3,7 +3,7 @@
 Special note to this project: In this project, not like other Sailsjs project, the database schema 
 is predefined and the data is preloaded. We have developed tools to load schema and data.
 
-1. create DB database on the cloud.
+1. create MySql database on the cloud.
 2. create Sailjs application.
 3. deploy application to cloud.
 4. create database schema.
@@ -20,8 +20,8 @@ Using powershell on local machine
 
 
 ##Steps:
-###1. create DB
- service on organization 'gsa-cto' and space 'sandbox'.
+###1. create DB service on organization 'gsa-cto' and space 'sandbox'.
+
 1. click the "Add a new service instance" button.
 1. choose service plan "shared-DB", and click "create service instance" button.
 1. Enter name of this service. i.e. "cityPairsAPI". Choose space "sandbox". click "create service instance" button.
@@ -74,11 +74,12 @@ Using powershell on local machine
 Here, we defined an invironment variable *DB_NAME*. Application will use this variable to find database to connect.
 The services section indicates the database cityPairDB will bind to this application.
         
-###5. setup DB
- database connection information in Sails.js.
+###5. setup MySql database connection information in Sails.js.
+
 1. open file config/connections.js
 1. add the following connection entry.
-    ```
+
+```
     ,cityPairsDB: ( function () {
       var db_url;
       if('DATABASE_URL' in process.env) {
@@ -115,11 +116,11 @@ The services section indicates the database cityPairDB will bind to this applica
 1. setup default connection to file config/models.js
 1. add the following line to file config/models.js before the line with 'migration'.
 
-    ```
+```
     //----------------------------------------------------------
     connection: 'cityPairsDB',
     //----------------------------------------------------------
-    ```
+```
 
 ###6. update config/models.js
 We will create tables in a seperate process and load data in a seperate process too.
@@ -142,6 +143,7 @@ autoUpdatedAt: false
 ```
 sails generate api CityPairsMaster
 ```  
+
 This command generates two files, api/models/CityPairsMaster.js and api/controllers/CityPairsMasterController.js.
    
 ###8. update file api/models/CityPairsMaster.js with the following code:
@@ -390,6 +392,7 @@ module.exports.cors = {
 
 };
 ```
+
 ###13. login to fr.cloud.gov
 
 ```
@@ -397,16 +400,19 @@ module.exports.cors = {
 ```
 
 ###14. setup cloud.gov target.
+
 ```
 cf target -o gsa-cto -s sandbox
 ```
           
 ###15. push the application to the cloud
+
 ```
 cf push
 ```
 
 ###16 Setup database schema and load data.
+
 At this point, the database is not yet ready. We need to create schema and load data.
     
 Please refer database_setup/readme.md for the setup deatils.
