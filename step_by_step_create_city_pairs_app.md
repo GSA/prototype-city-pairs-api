@@ -3,8 +3,7 @@
 Special note to this project: In this project, not like other Sailsjs project, the database schema 
 is predefined and the data is preloaded. We have developed tools to load schema and data.
 
-1. create DB
- database on the cloud.
+1. create DB database on the cloud.
 2. create Sailjs application.
 3. deploy application to cloud.
 4. create database schema.
@@ -44,15 +43,11 @@ Using powershell on local machine
         "node": "7.x.x"
     },
     ```
-1. add two node modules DB
-2 and sails-DB
-.
+1. add two node modules mysql2 and sails-mysql.
 
     ```
-    npm install --save DB
-2
-    npm install --save sails-DB
- 
+    npm install --save mysql2
+    npm install --save sails-mysql
     ```
 
 ###4. prepare for cloud.gov.
@@ -94,10 +89,8 @@ The services section indicates the database cityPairDB will bind to this applica
           return {};
       }
 
-      // db_url example:  "DB
-2://user:pass@localhost:3306/dbname";
-      var url_reg = /(DB
-.*):\/\/(.*):(.*)@(.*):(.*)\/(.*)/;
+      // db_url example:  "mysql2://user:pass@localhost:3306/dbname";
+      var url_reg = /(mysql.*):\/\/(.*):(.*)@(.*):(.*)\/(.*)/;
 
       var usr_obj = db_url.match(url_reg);
       if( usr_obj == null) {
@@ -106,8 +99,7 @@ The services section indicates the database cityPairDB will bind to this applica
       }
 
       var db = {
-        adapter : 'sails-DB
-',
+        adapter : 'sails-mysql',
         user : usr_obj[2],
         password : usr_obj[3],
         host : usr_obj[4],
@@ -125,8 +117,7 @@ The services section indicates the database cityPairDB will bind to this applica
 
     ```
     //----------------------------------------------------------
-    connection: 'cityPairsDB
-',
+    connection: 'cityPairsDB',
     //----------------------------------------------------------
     ```
 
@@ -137,8 +128,7 @@ In this case, we need to turn off autoPK, autoCreatedAt, autoUpdatedAt flags.
 ```
 module.exports.models = {
 
-connection: 'cityPairsDB
-',
+connection: 'cityPairsDB',
 migrate: 'safe',
 
 autoPK: false,
