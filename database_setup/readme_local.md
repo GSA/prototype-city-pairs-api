@@ -65,7 +65,7 @@ node load_data_to_mysql.js cityPairsRawData award2017.csv
 node run_sql_file.js cityPairsMaster.sql
 ```
 
-###5. In command cloud console, check how many rows have loaded.
+###5. In command console, check how many rows have loaded.
 
 ```
 node run_sql.js "select count(*) from cityPairsMaster"

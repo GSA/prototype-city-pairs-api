@@ -20,10 +20,10 @@ Using powershell on local machine
 
 
 ##Steps:
-###1. create DB service on organization 'gsa-cto' and space 'sandbox'.
+###1. create mysql service on organization 'gsa-cto' and space 'sandbox'.
 
 1. click the "Add a new service instance" button.
-1. choose service plan "shared-DB", and click "create service instance" button.
+1. choose service plan "shared-mysql", and click "create service instance" button.
 1. Enter name of this service. i.e. "cityPairsAPI". Choose space "sandbox". click "create service instance" button.
 1. We will update manifest.yml with this service name later.
     
