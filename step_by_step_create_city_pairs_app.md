@@ -6,8 +6,8 @@ is predefined and the data is preloaded. We have developed tools to load schema 
 1. create MySql database on the cloud.
 2. create Sailjs application.
 3. deploy application to cloud.
-4. create database schema.
-5. migrate data to database.
+4. [create database schema.](database_setup#4-in-cloud-console-load-data-to-table-citypairsrawdata)
+5. [migrate data to database.](https://github.com/GSA/prototype-city-pairs-api/tree/master/database_setup#5-in-cloud-console-reformat-the-raw-data-and-load-to-table-citypairsmaster)
 
 ##Prerequisites:
 Existing fr.cloud.gov account
