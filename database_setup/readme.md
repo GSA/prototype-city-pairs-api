@@ -1,5 +1,8 @@
 #How to setup database from cloud.gov console window
 
+_Note: for local database setup, reference the document [database_setup/readme_local.md](readme_local.md)_
+
+
 During the development phase of a project, the database schema and referrential data are build gradully.
 When a project is ready to release to production, you either have an empty database or a non-empty database.
 In this case, you have to perform database migration manually.
