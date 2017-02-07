@@ -13,7 +13,7 @@ is predefined and the data is preloaded. We have developed tools to load schema 
 Existing fr.cloud.gov account
 Node.js is installed on machine
 Steps taken from this document: 
-Already created sample app on cloud following steps in create_sample_webapi_server_on_cloud.md
+Already created sample app on cloud following steps in [create_sample_webapi_server_on_cloud.md](create_sailjs_webserver_on_cloud.md)
 
 ##Assumptions:
 Using powershell on local machine
