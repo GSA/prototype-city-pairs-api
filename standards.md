@@ -61,22 +61,25 @@ _Using versioning to avoid this._
 The URL path should follow this pattern if possible for a collection of items:
 (path)/{business_function}/{application_name}/{version}/{plural_noun}
 
-_Following this. See endpoint structure in /config/routes.js_
+_Following this with A URL Structure of: travel/citypairs/v0/airfares. See endpoint structure in /config/routes.js_
 
 The URL path for an individual item in this collection would default to:
 (path)/{business_function}/{application_name}/{version}/{plural_noun}/{identifier}
 
-_NOT following this yet_
+_Following this with a URL structure of: travel/citypairs/v0/airfares/:id. See endpoint structure in /config/routes.js__
 
 * The URL query string (e.g. `?year=2014`)
+_Following this with a URL structure of: travel/citypairs/v0/airfares?award_year=2015&origin_airport_abbrev=abq&destination_airport_abbrev=BWI. See endpoint structure in /config/routes.js__
+
+
 * HTTP headers (e.g. `X-Api-Key: my-key`)
 
-_Only using URL query string._
+_Not using HTTP heads for keys yet._
 
 ### Taxonomy 
 If the API is intended to share data across the GSA enteprise or beyond, consider referencing the GSA Taxonomy. Contact GSA's Chief Data Officer for more information.
 
-_This is in progress. Intend for "travel" to be a taxonomy term of some kind._
+_This is in progress. Intend for "travel" to be a taxonomy term._
 
 ### Versioning
 The recommended method of versioning APIs is to include a version number in the URL path. For example "/v1/". 
