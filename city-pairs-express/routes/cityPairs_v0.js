@@ -9,7 +9,7 @@ function airfares_by_id(req, res) {
         
         var id = req.params['id'];
 
-        console.log(req);
+        //console.log(req);
         
         var conn = req.app.locals.dbConn;
 //        console.log('++++++++');
@@ -35,7 +35,7 @@ function airfares(req, res) {
         var origin_airport_abbrev =  req.query.origin_airport_abbrev;
         var destination_airport_abbrev = req.query.destination_airport_abbrev;
 
-        console.log(req);
+        //console.log(req);
 
         var errMsg = "";
         var error = 0;
@@ -94,7 +94,7 @@ function airfares(req, res) {
                     res.status(500); // 500 system error
                     return res.json({error: err});
                 }  
-                console.log(rawResult);
+                //console.log(rawResult);
                 return res.json({result: rawResult});
             }
         );

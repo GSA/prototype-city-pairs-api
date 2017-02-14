@@ -32,7 +32,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/users', users);
-app.use('/travel/citypairs/v0', cityPairsV0);
+app.use('/travel/citypairs/v0', cityPairsV0); //point base path to router
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
