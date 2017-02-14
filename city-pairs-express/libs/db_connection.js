@@ -11,7 +11,7 @@ function connectDB(app) {
             });
 	        return;
         }
-        var conn = mysql.createPool(db_url+'?multipleStatements=true');
+        var conn = mysql.createPool(db_url);
         app.locals.dbConn = conn;
 }
 
