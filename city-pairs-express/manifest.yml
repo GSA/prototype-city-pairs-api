@@ -1,9 +1,10 @@
 ---
 applications:
-- name: cityPairsAPI_express
-  memory: 512M  
+- name: cityPairsAPI_express-rday
+  memory: 128M  
 env:  
   NODE_ENV: development
   DB_NAME: cityPairsDB
+  DOCS_PATH: https://gsa.github.io/prototype-city-pairs-api-documentation/api-docs/
 services:
 - cityPairsDB

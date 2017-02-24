@@ -10,6 +10,7 @@ var db_connect = require("./libs/db_connection.js");
 var index = require('./routes/index');
 var users = require('./routes/users');
 var cityPairsV0 = require('./routes/cityPairs_v0');
+var redirect = require('./routes/redirect');
 
 
 var app = express();
@@ -33,6 +34,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', index);
 app.use('/users', users);
 app.use('/travel/citypairs/v0', cityPairsV0); //point base path to router
+app.use('/travel/citypairs/docs', redirect); //point base path to router
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
