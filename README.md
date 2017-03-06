@@ -10,6 +10,7 @@ It will be used to test out and prototype items including:
 
 # Additional Guides
 - Instructions for building and implementing this project are here: [step_by_step_create_city_pairs_app.md](step_by_step_create_city_pairs_app.md)
+- Instructions for installing and running this project (without coding) are here:[running_this_project.md](running_this_project.md)
 - A description of how this project demonstrates the API Standards is here: [standards.md] (standards.md)
 
 ## Code Repositories
