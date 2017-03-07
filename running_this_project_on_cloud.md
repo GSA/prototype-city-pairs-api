@@ -2,7 +2,7 @@
 
 These instructions allow you to clone this repo and deploy it to cloud.gov. To run the app locally, look at these instructions: [running_this_project_locally](running_this_project_locally.md).
 
-* Prerequisites: *
+Prerequisites: 
 
 1. Clone the repo on your local machine
 2. Have a fr.cloud.gov account
@@ -10,7 +10,7 @@ These instructions allow you to clone this repo and deploy it to cloud.gov. To r
 4. Have created a sample sailsjs application on your local machine and deployted to cloud.gov following these instructions: [How to create Sailsjs webserver on cloud.gov](create_sailjs_webserver_on_cloud.md)
 5. Already have created database service in your cloud.gov space and loaded the data. (See instructions here: database_setup/readme_local.md](readme_local.md)
 
-* Assumptions: *
+Assumptions:
 Using powershell on local machine
 
 
@@ -24,7 +24,7 @@ Using powershell on local machine
 
 Set the target org and space through the menu or the following command:
 
-`cf target -o {org_name} -s {space_name}'
+`cf target -o {org_name} -s {space_name}`
 
 (Q: do you have to build the sails app in order to get all of the node_modules content?)
 
