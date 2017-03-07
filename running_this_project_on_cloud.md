@@ -1,4 +1,6 @@
-# Running This Project 
+# Running This Project On Cloud.gov
+
+These instructions allow you to clone this repo and deploy it to cloud.gov. To run the app locally, look at these instructions: [running_this_project_locally](running_this_project_locally.md).
 
 Prerequisites:
 1. Clone the repo on your local machine
@@ -6,32 +8,12 @@ Prerequisites:
 ## Running this project in the cloud
 
 ### Sails version
-1. Install the sails app to get all the prerequisites
-2. Log into cloud.gov
-3. Push your application & see if it runs
+1. Log into cloud.gov
+2. Push your application to cloud.gov
 
 ### Express version
-1. Install the express app to get all the prerequisites
-2. Log into cloud.gov
-3. Push your application (with a different name than the sails version) & see if it runs
-
-## Running this project locally
-
-1. Install mySQL
-2. Run database scripts
-3. Set up database URL and MySQL environment variables
-
-### Sails version
-(do stuff above for cloud version)
-1. Go to the /sails directory
-2. `sails lift`
-3. Test that it is running
-
-### Express version
-(do stuff above for cloud version)
-1. Go to /express directory
-2. `set DEBUG=cityPairsAPI_express:* & npm start`
-3. Test that it is running
+1. Log into cloud.gov
+2. Push your application to cloud.gov
 
 STUFF BELOW HERE HAS NOT BEEN VALIDATED:
 -------------------
