@@ -7,7 +7,7 @@ Prerequisites:
 1. Clone the repo on your local machine
 2. Have a fr.cloud.gov account
 3. Node.js installed on local machine
-4. Have created a sample sailsjs application on your local machine and deployted to cloud.gov following these instructions: [How to create Sailsjs webserver on cloud.gov](create_sailjs_webserver_on_cloud.md)
+4. Have created a sample sailsjs application on your local machine and deployted to cloud.gov following these instructions: [sailsjs setup](create_sailjs_webserver_on_cloud.md)
 5. Already have created database service in your cloud.gov space and loaded the data. (See instructions here: database_setup/readme_local.md](readme_local.md)
 
 Assumptions:
