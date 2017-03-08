@@ -20,19 +20,19 @@ Using powershell on local machine
 ### Sails version
 1. Log into cloud.gov
 
-`cf login -a api.fr.cloud.gov --sso`
+   `cf login -a api.fr.cloud.gov --sso`
 
-Set the target org and space through the menu or the following command:
+   Set the target org and space through the menu or the following command:
 
-`cf target -o {org_name} -s {space_name}`
+   `cf target -o {org_name} -s {space_name}`
 
-(Q: do you have to build the sails app in order to get all of the node_modules content?)
+   (Q: do you have to build the sails app in order to get all of the node_modules content?)
 
 2. Push a copy of the application to cloud.gov
 
-`cf push`
+   `cf push`
 
-If it is successful, you should get a message stating that the application is running.
+   If it is successful, you should get a message stating that the application is running.
 
 
 3. Test it is working with web page & API call
