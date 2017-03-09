@@ -1,6 +1,6 @@
 ---
 applications:
-- name: cityPairsAPI
+- name: cityPairsAPI-sails-rday
   memory: 512M  
 env:  
   NODE_ENV: development
