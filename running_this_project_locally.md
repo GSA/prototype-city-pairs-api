@@ -6,12 +6,14 @@
 
 ### Sails version
 (do stuff above for cloud version)
+
 1. Go to the /sails directory
 2. `sails lift`
 3. Test that it is running
 
 ### Express version
 (do stuff above for cloud version)
+
 1. Go to /express directory
 2. `set DEBUG=cityPairsAPI_express:* & npm start`
 3. Test that it is running
