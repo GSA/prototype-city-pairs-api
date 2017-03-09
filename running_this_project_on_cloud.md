@@ -18,7 +18,8 @@ Using powershell on local machine
 ## Running this project in the cloud
 
 ### Sails version
-1. Log into cloud.gov
+1. In the local repo, cd to the /sails directory.
+2. Log into cloud.gov
 
    `cf login -a api.fr.cloud.gov --sso`
 
@@ -28,18 +29,25 @@ Using powershell on local machine
 
    (Q: do you have to build the sails app in order to get all of the node_modules content?)
 
-2. Push a copy of the application to cloud.gov
+3. Push a copy of the application to cloud.gov
 
    `cf push`
 
-   If it is successful, you should get a message stating that the application is running.
+   If it is successful, you should get several messages, including:
+   `Build succeeded!`
+   `App started`
+   `urls: {url}`
 
 
-3. Test it is working with web page & API call
+4. Test the web page to confirm it has deployed
+    Access the {url} from above using a web browser. You should see the following message:
+    `Welcome to Web CityPairs API demo page!`
+    
+5. Test the API
+    Construct the API url by adding the {url} value plus the example API path on the web page from step 3. Access this URL in your web browser. You should see the resulting JSON. (Alternatively, you can call the API with an API testing tool.)
 
 ### Express version
-1. Log into cloud.gov
-2. Push your application to cloud.gov
+Follow the same instructions as the Sails version, but cd to the /express directory.
 
 
 
