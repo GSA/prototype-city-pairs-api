@@ -5,7 +5,7 @@
 [database_setup / readme_local.md](database_setup/readme_local.md)
 
 
-2. Perform these steps to run the applications on cloud.gov:
+2. Perform these steps to run the applications on cloud.gov (it will set up some prerequisites):
 
 [Running this project on cloud.gov](running_this_project_on_cloud.md)
 
