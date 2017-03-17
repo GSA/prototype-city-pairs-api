@@ -11,17 +11,55 @@
 
 ### Sails version
 
+1. In the same terminal session, change to the sails directory:
 
+`cd sails`
 
+2. Verify that sails is installed correctly.
 
-1. Go to the /sails directory
-2. `sails lift`
-3. Test that it is running
+`sails --version`
+
+You should receive a version number.
+
+3. Run the application locally:
+
+`sails lift`
+
+You should receive the message like this:
+
+`info: Starting ap...`
+`Server lifted in {directory path}`
+
+4. Test API is running by entering this URL in the browser (or API testing tool):
+
+`http://localhost:1337/travel/citypairs/v0/airfares?award_year=2015&origin_airport_abbrev=BWI`
+
+You should receive data in JSON format.
+
+5. Exit the sails app, for example `ctrl+c`
 
 ### Express version
-(do stuff above for cloud version)
 
-1. Go to /express directory
-2. `set DEBUG=cityPairsAPI_express:* & npm start`
-3. Test that it is running
+1. In the same terminal session, change to the express directory:
+
+`cd ../express`
+
+2. Verify that express is installed correctly.
+
+`express --version`
+
+You should receive a version number.
+
+3. Launch the API
+
+`set DEBUG=cityPairsAPI_express:* & npm start`
+
+
+4. Test API is running by entering this URL in the browser (or API testing tool):
+
+`http://localhost:3000/travel/citypairs/v0/airfares/99`
+
+You should receive data in JSON format.
+
+5. Exit the sails app, for example `ctrl+c`
 
