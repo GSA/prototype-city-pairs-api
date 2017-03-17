@@ -29,7 +29,16 @@ cityPairsMaster.sql
 ```
 
 ##Steps to create database 
-###1. environment setup
+1. Install MySQL and configure any necessary environment variables.
+
+For example:
+`export PATH=$PATH:/usr/local/mysql/bin`
+
+2. Create database 'citypairsdb'
+
+3. Create user and password
+
+4. environment setup
 
 The utilities depend on one environment variable DATABASE_URL.
 The DATABASE_URL requires the following format:
@@ -40,15 +49,52 @@ mysql2://user:passwd@host:port_number/db_name
 For example:
 
 set DATABASE_URL='mysql2://user:passwd@host:port_number/db_name'
+
+or
+
+export DATABASE_URL=mysql2://{user}:{password}@localhost:3306/citypairsdb`
+
 ```
 
-###2. In command console, create tables cityPairsRawData and cityPairsMaster using utility code run_sql_file.js.
+5. Verify MySQL is running and you can connect to local console:
+
+`mysql -u {user} -p`
+
+Enter password to database when prompted.
+
+6. Run query inside local console:
+
+`mysql> select now();`
+
+The command should run successfully.
+
+Exit MySQL console
+
+`exit`
+
+7. (if not done previously) Change to /database setup directory in project.
+
+8. Update node libraries in local package
+
+`npm update`
+
+9. Install additional needed libraries for local development
+
+`npm install mysql2 -save`
+`npm install csv-string -save`
+
+
+10. Test function of run_sql.js command
+
+`node run_sql.js "select now();"`
+
+11. In command console, create tables cityPairsRawData and cityPairsMaster using utility code run_sql_file.js.
 
 ```
 node run_sql_file.js cityPairsRawData_tables.sql
 ```
 
-###3. In command console, load data to table cityPairsRawData.
+12. In command console, load data to table cityPairsRawData.
 
 Before the load, we need to inspect the data integrity with spreedsheet.
 The table names are case sensitive in Linux server.
@@ -59,13 +105,13 @@ node load_data_to_mysql.js cityPairsRawData award2016.csv
 node load_data_to_mysql.js cityPairsRawData award2017.csv
 ```
 
-###4. In command console, reformat the raw data and load to table cityPairsMaster.
+13. In command console, reformat the raw data and load to table cityPairsMaster.
 
 ```
 node run_sql_file.js cityPairsMaster.sql
 ```
 
-###5. In command console, check how many rows have loaded.
+14. In command console, check how many rows have loaded.
 
 ```
 node run_sql.js "select count(*) from cityPairsMaster"
