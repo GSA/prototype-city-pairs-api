@@ -415,6 +415,6 @@ cf push
 
 At this point, the database is not yet ready. We need to create schema and load data.
     
-Please refer database_setup/readme.md for the setup deatils.
+Please refer to [How to setup database from cloud.gov console window](database_setup/readme.md) for the setup details.
 
 ### 17. Test the web server with a web browser.
