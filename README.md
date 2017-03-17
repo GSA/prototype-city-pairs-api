@@ -6,8 +6,6 @@ It will be used to test out and prototype items including:
 - [GSA API Standards](https://github.com/GSA/api-standards/tree/converting-gsa-standards)
 - [GSA API Documentation Template](https://github.com/GSA/api-documentation-template)
 - Cloud deployment and hosting
-- DevSecOps
-
 # Additional Guides
 - Instructions for building and implementing this project are here: [step_by_step_create_city_pairs_app.md](step_by_step_create_city_pairs_app.md)
 - Instructions for installing and running this project on cloud.gov are here:[running_this_project_on_cloud.md](running_this_project_on_cloud.md)
