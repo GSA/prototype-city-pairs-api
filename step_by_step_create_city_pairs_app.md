@@ -9,7 +9,7 @@ is predefined and the data is preloaded. We have developed tools to load schema 
 4. [create database schema.](database_setup#4-in-cloud-console-load-data-to-table-citypairsrawdata)
 5. [migrate data to database.](https://github.com/GSA/prototype-city-pairs-api/tree/master/database_setup#5-in-cloud-console-reformat-the-raw-data-and-load-to-table-citypairsmaster)
 
-##Prerequisites:
+## Prerequisites:
 Existing fr.cloud.gov account
 Node.js is installed on machine
 Steps taken from this document: 
@@ -19,19 +19,19 @@ Already created sample app on cloud following steps in [create_sample_webapi_ser
 Using powershell on local machine
 
 
-##Steps:
-###1. create mysql service on organization 'gsa-cto' and space 'sandbox'.
+## Steps:
+### 1. create mysql service on organization 'gsa-cto' and space 'sandbox'.
 
 1. click the "Add a new service instance" button.
 1. choose service plan "shared-mysql", and click "create service instance" button.
 1. Enter name of this service. i.e. "cityPairsAPI". Choose space "sandbox". click "create service instance" button.
 1. We will update manifest.yml with this service name later.
     
-###2. install sails.js command-line tool on your local computer in PowerShell windown. You may already installed it.
+### 2. install sails.js command-line tool on your local computer in PowerShell windown. You may already installed it.
 ```
     npm -g install sails
 ```  
-###3. create a new sails project under your project directory
+### 3. create a new sails project under your project directory
 1. create a new sails application.  "sails new prototype-city-pairs-api"
 1. change directory to prototype-city-pairs-api.  "cd prototype-city-pairs-api"
 1. start the application. "sails lift"
@@ -50,7 +50,7 @@ Using powershell on local machine
     npm install --save sails-mysql
     ```
 
-###4. prepare for cloud.gov.
+### 4. prepare for cloud.gov.
 
 1. In prototype-city-pairs-api directory, create file *Procfile* with one line in it.
 
@@ -74,7 +74,7 @@ Using powershell on local machine
 Here, we defined an invironment variable *DB_NAME*. Application will use this variable to find database to connect.
 The services section indicates the database cityPairDB will bind to this application.
         
-###5. setup MySql database connection information in Sails.js.
+### 5. setup MySql database connection information in Sails.js.
 
 1. open file config/connections.js
 1. add the following connection entry.
@@ -122,7 +122,7 @@ The services section indicates the database cityPairDB will bind to this applica
     //----------------------------------------------------------
 ```
 
-###6. update config/models.js
+### 6. update config/models.js
 We will create tables in a seperate process and load data in a seperate process too.
 In this case, we need to turn off autoPK, autoCreatedAt, autoUpdatedAt flags.
 
@@ -138,7 +138,7 @@ autoUpdatedAt: false
 }
 ```
 
-###7. generate data model CityPairsMaster.
+### 7. generate data model CityPairsMaster.
 
 ```
 sails generate api CityPairsMaster
@@ -146,7 +146,7 @@ sails generate api CityPairsMaster
 
 This command generates two files, api/models/CityPairsMaster.js and api/controllers/CityPairsMasterController.js.
    
-###8. update file api/models/CityPairsMaster.js with the following code:
+### 8. update file api/models/CityPairsMaster.js with the following code:
 
 ```
 module.exports = {
@@ -181,7 +181,7 @@ attributes: {
 ```
 
 
-###9. update file api/controllers/CityPairsMasterController.js with the following code:
+### 9. update file api/controllers/CityPairsMasterController.js with the following code:
 
 ```
 var util = require('util');
@@ -338,7 +338,7 @@ module.exports.routes = {
 };
 ```
     
-###12. update config/cors.js
+### 12. update config/cors.js
 
 ```
 module.exports.cors = {
@@ -393,28 +393,28 @@ module.exports.cors = {
 };
 ```
 
-###13. login to fr.cloud.gov
+### 13. login to fr.cloud.gov
 
 ```
  cf login -a api.fr.cloud.gov --sso
 ```
 
-###14. setup cloud.gov target.
+### 14. setup cloud.gov target.
 
 ```
 cf target -o gsa-cto -s sandbox
 ```
           
-###15. push the application to the cloud
+### 15. push the application to the cloud
 
 ```
 cf push
 ```
 
-###16 Setup database schema and load data.
+### 16 Setup database schema and load data.
 
 At this point, the database is not yet ready. We need to create schema and load data.
     
 Please refer database_setup/readme.md for the setup deatils.
 
-###17. Test the web server with a web browser.
+### 17. Test the web server with a web browser.
