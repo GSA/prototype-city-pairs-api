@@ -15,7 +15,7 @@ Node.js is installed on machine
 Steps taken from this document: 
 Already created sample app on cloud following steps in [create_sample_webapi_server_on_cloud.md](create_sailjs_webserver_on_cloud.md)
 
-##Assumptions:
+## Assumptions:
 Using powershell on local machine
 
 
