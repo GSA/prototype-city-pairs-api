@@ -29,16 +29,50 @@ cityPairsMaster.sql
 ```
 
 ## Steps to create database 
-1. Install MySQL and configure any necessary environment variables.
+1. Install MySQL on your local machine. This will create the root user. Record the temporary password set for root.
+
+2. Open terminal and configure any necessary environment variables.
 
 For example:
 `export PATH=$PATH:/usr/local/mysql/bin`
 
-2. Create database 'citypairsdb'
+3. Start the MySQL console from the terminal
 
-3. Create user and password
+`mysql -u root -p`
 
-4. environment setup
+Enter the temporary password assigned to root.
+
+4. Reset the temporary password for root.
+
+`alter user root identified by {new password}`
+
+
+5. Create database 'citypairsdb'. (Still in MySQL console.)
+
+`create database 'citypairsdb';`
+
+6. Create application user and password and grant access to database (Still in MySQL console.)
+
+`create user {new user} identified by {new password};`
+
+`grant all privileges on citypairsdb.* to {new user}@'%';`
+
+7. Exit MySQL console.
+
+8. Open MySQL console as new user.
+`mysql -u {new user} -p`
+
+9. Run query inside MySQL console:
+
+`select now();`
+
+
+Exit MySQL console
+
+`exit`
+
+
+10. Environment setup
 
 The utilities depend on one environment variable DATABASE_URL.
 The DATABASE_URL requires the following format:
@@ -55,46 +89,23 @@ or
 export DATABASE_URL=mysql2://{user}:{password}@localhost:3306/citypairsdb`
 
 ```
+11. (if not done previously) Change to 'database setup' directory in city pairs API project.
 
-5. Verify MySQL is running and you can connect to local console:
-
-`mysql -u {user} -p`
-
-Enter password to database when prompted.
-
-6. Run query inside local console:
-
-`mysql> select now();`
-
-The command should run successfully.
-
-Exit MySQL console
-
-`exit`
-
-7. (if not done previously) Change to /database setup directory in project.
-
-8. Update node libraries in local package
+12. Update node libraries in local package
 
 `npm update`
 
-9. Install additional needed libraries for local development
-
-`npm install mysql2 -save`
-`npm install csv-string -save`
-
-
-10. Test function of run_sql.js command
+13. Test function of run_sql.js command
 
 `node run_sql.js "select now();"`
 
-11. In command console, create tables cityPairsRawData and cityPairsMaster using utility code run_sql_file.js.
+14. In command console, create tables cityPairsRawData and cityPairsMaster using utility code run_sql_file.js.
 
 ```
 node run_sql_file.js cityPairsRawData_tables.sql
 ```
 
-12. In command console, load data to table cityPairsRawData.
+15. In command console, load data to table cityPairsRawData.
 
 Before the load, we need to inspect the data integrity with spreedsheet.
 The table names are case sensitive in Linux server.
@@ -105,13 +116,13 @@ node load_data_to_mysql.js cityPairsRawData award2016.csv
 node load_data_to_mysql.js cityPairsRawData award2017.csv
 ```
 
-13. In command console, reformat the raw data and load to table cityPairsMaster.
+16. In command console, reformat the raw data and load to table cityPairsMaster.
 
 ```
 node run_sql_file.js cityPairsMaster.sql
 ```
 
-14. In command console, check how many rows have loaded.
+17. In command console, check how many rows have loaded.
 
 ```
 node run_sql.js "select count(*) from cityPairsMaster"
