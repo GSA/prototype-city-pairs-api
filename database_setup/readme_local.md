@@ -51,13 +51,17 @@ Enter the temporary password assigned to root.
 
 `create database 'citypairsdb';`
 
-6. Create application user and password and grant access to database (Still in MySQL console.)
+6. Create application user and password (Still in MySQL console.)
 
 `create user {new user} identified by {new password};`
 
+7. Grant access to database 
+
 `grant all privileges on citypairsdb.* to {new user}@'%';`
 
-7. Exit MySQL console.
+Exit MySQL console.
+
+`exit`
 
 8. Open MySQL console as new user.
 `mysql -u {new user} -p`
