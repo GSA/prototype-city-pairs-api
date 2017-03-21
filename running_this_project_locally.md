@@ -9,11 +9,29 @@
 
 [Running this project on cloud.gov](running_this_project_on_cloud.md)
 
+
+3. Environment setup (for both Express and Sails versions)
+The utilities depend on one environment variable DATABASE_URL. The DATABASE_URL requires the following format:
+
+`mysql2://user:passwd@host:port_number/db_name`
+
+For example:
+
+`set DATABASE_URL='mysql2://user:passwd@host:port_number/db_name'`
+
+or
+
+`export DATABASE_URL=mysql2://{user}:{password}@localhost:3306/citypairsdb`
+
 ### Sails version
 
 1. In the same terminal session, change to the sails directory:
 
 `cd sails`
+
+2. Verify any dependencies are installed.
+
+`npm update`
 
 2. Verify that sails is installed correctly.
 
@@ -21,7 +39,7 @@
 
 You should receive a version number.
 
-3. Run the application locally:
+4. Run the application locally:
 
 `sails lift`
 
@@ -30,13 +48,13 @@ You should receive the message like this:
 `info: Starting ap...`
 `Server lifted in {directory path}`
 
-4. Test API is running by entering this URL in the browser (or API testing tool):
+5. Test API is running by entering this URL in the browser (or API testing tool):
 
 `http://localhost:1337/travel/citypairs/v0/airfares?award_year=2015&origin_airport_abbrev=BWI`
 
 You should receive data in JSON format.
 
-5. Exit the sails app, for example `ctrl+c`
+6. Exit the sails app, for example `ctrl+c`
 
 ### Express version
 
@@ -44,11 +62,9 @@ You should receive data in JSON format.
 
 `cd ../express`
 
-2. Verify that express is installed correctly.
+2. Verify any dependencies are installed
 
-`express --version`
-
-You should receive a version number.
+`npm update`
 
 3. Launch the API
 
