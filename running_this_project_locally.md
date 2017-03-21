@@ -70,6 +70,7 @@ You should receive data in JSON format.
 
 `set DEBUG=cityPairsAPI_express:* & npm start`
 
+The messages displayed will not provide much confirmation, so go to the next step.
 
 4. Test API is running by entering this URL in the browser (or API testing tool):
 
@@ -77,5 +78,5 @@ You should receive data in JSON format.
 
 You should receive data in JSON format.
 
-5. Exit the sails app, for example `ctrl+c`
+5. Exit the express app, for example `ctrl+c`
 
