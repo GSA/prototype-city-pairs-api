@@ -39,7 +39,7 @@ For this step, the MySQL database will be created on a development server access
 
 3. Grant the application user access to citypairsdb 
 
-4. Set up environment variable `DATABASE_URL`
+4. Open the command console (e.g. CMD or Terminal), and set up environment variable `DATABASE_URL`
 
 The utilities depend on one environment variable DATABASE_URL.
 The DATABASE_URL requires the following format:
@@ -56,7 +56,9 @@ or
 export DATABASE_URL=mysql2://{user}:{password}@exampleserver:3306/citypairsdb`
 
 ```
-5. (if not done previously) Change to 'database setup' directory in city pairs API project.
+5. In the command console, change to the database_setup directory of the cloned repository.
+
+`cd prototype-city-pairs-api/database_setup`
 
 6. Update node libraries in local package
 
