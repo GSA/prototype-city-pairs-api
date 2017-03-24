@@ -1,6 +1,6 @@
 ---
 applications:
-- name: cityPairsPrototypeAPI-sails
+- name: cityPairsAPI_jpang
   memory: 512M  
 env:  
   NODE_ENV: development
