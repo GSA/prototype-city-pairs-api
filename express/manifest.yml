@@ -1,6 +1,6 @@
 ---
 applications:
-- name: cityPairsAPI_express-rday
+- name: cityPairsPrototypeAPI
   memory: 128M  
 env:  
   NODE_ENV: development
