@@ -21,7 +21,11 @@ function airfares_by_id(req, res) {
                     res.status(500); // 500 system error
                     return res.json({error: err});
                 }  
-                return res.json({result: rawResult});
+                //return res.json({result: rawResult});
+                return res.json({
+                    message: "This is a prototype API. These results are for demonstration purposes only.",
+                    result: rawResult
+                });
             }
         );
 }
@@ -95,7 +99,11 @@ function airfares(req, res) {
                     return res.json({error: err});
                 }  
                 //console.log(rawResult);
-                return res.json({result: rawResult});
+                //return res.json({result: rawResult});
+                return res.json({
+                    message: "This is a prototype API. These results are for demonstration purposes only.",
+                    result: rawResult
+                });
             }
         );
 }
