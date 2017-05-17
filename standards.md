@@ -1,5 +1,5 @@
-# IMPLEMENTATION OF API STANDARDS
-This document describes how this project demonstrates the draft [GSA API Standards](https://github.com/GSA/api-standards/tree/converting-gsa-standards).
+# HOW DOES CITY PAIRS IMPLEMENT THE GSA API STANDARDS?
+This document describes how this project demonstrates the [GSA API Standards](https://github.com/GSA/api-standards).
 
 This will be updated as more functionality is implemented.
 
@@ -9,50 +9,29 @@ _How this project implements is in italics._
 
 
 
-## About These Standards
-
-_NA - this section doesn't have recommendations._
 
 ## Overall Considerations
 
-### Design for common use cases
-
-* **Bulk data.** -- _The city pairs is available separately as a CSV download of entire Fiscal Years._
-* **Staying up to date.** -- _Not implemented. The CSV data does not contain a last changed date to filter on._
-* **Driving expensive actions.** -- _Nothing implemented for this._
-
-
-### Using one's own API
-
-_Not doing this. There is already a City Pairs Search page so no value in building a duplicate of that for demonstration purposes._
 
 
 ## Developers Are Your End Users
 
 ### Add Your API To The GSA API Directory
-_Not doing this because it is only a demonstration project._
+_Not doing this because it is only a demonstration project. However, if it was a live API, it would be registered in the directory with a link to the API documentation._
 
 ### Provide Documentation
-_Documentation repo here: [https://github.com/GSA/prototype-city-pairs-api-documentation](https://github.com/GSA/prototype-city-pairs-api-documentation)_
+_We have fully implemented a set of documentation for this API using the documentation template. You can see the documentation repo here: [https://github.com/GSA/prototype-city-pairs-api-documentation](https://github.com/GSA/prototype-city-pairs-api-documentation)_
 
 
 
 ### Point of contact
 
-_Using github repo and email as alternate._
+_For this API, we are demonstrating an approach of having [issues posted in the github repo](https://github.com/GSA/prototype-city-pairs-api/issues) as the primary method of providing support, and providing a GSA email address as as alternate._
 
-
-### Notifications of updates
-
-_Not doing this._
-
-### Decommission Unsupported APIs
-
-_NA_
 
 ### Avoid Breaking Changes
 
-_Using versioning to avoid this._
+_Not specifically addressing this, since it is just a prototype with "v0". Our approach to this would be as recommended in the standards, keeping a single version with any non-breaking changes and incrementing the version if a breaking change occurs._
 
 ## Design Considerations
 
@@ -61,20 +40,35 @@ _Using versioning to avoid this._
 The URL path should follow this pattern if possible for a collection of items:
 (path)/{business_function}/{application_name}/{version}/{plural_noun}
 
-_Following this with A URL Structure of: travel/citypairs/v0/airfares. See endpoint structure in /config/routes.js_
+_Following this with A URL Structure of: travel/citypairs/v0/airfares. 
+
+* {business_function}: `travel`
+* {application_name}: `citypairs`
+* {version}: `V0`
+* {plural_noun}: `airfares`
+
+In the code, this is configred as follows:
+
+* {business_function}/{application_name}/{version} -- This is configured in [/express/app.js ](https://github.com/GSA/prototype-city-pairs-api/blob/master/express/app.js):
+
+`app.use('/travel/citypairs/v0', cityPairsV0); //point base path to router`
+
+* {plural_noun} -- This is configured in [/express/routes/cityPairs_v0.js](https://github.com/GSA/prototype-city-pairs-api/blob/master/express/routes/cityPairs_v0.js).
+
+`router.get('/airfares', airfares);`
 
 The URL path for an individual item in this collection would default to:
 (path)/{business_function}/{application_name}/{version}/{plural_noun}/{identifier}
 
-_Following this with a URL structure of: travel/citypairs/v0/airfares/:id. See endpoint structure in /config/routes.js__
+_Following this with a URL structure of: travel/citypairs/v0/airfares/:id. See endpoint structure in [/express/routes/cityPairs_v0.js](https://github.com/GSA/prototype-city-pairs-api/blob/master/express/routes/cityPairs_v0.js)__
 
 * The URL query string (e.g. `?year=2014`)
-_Following this with a URL structure of: travel/citypairs/v0/airfares?award_year=2015&origin_airport_abbrev=abq&destination_airport_abbrev=BWI. See endpoint structure in /config/routes.js__
+_Following this with a URL structure of: travel/citypairs/v0/airfares?award_year=2015&origin_airport_abbrev=abq&destination_airport_abbrev=BWI.See endpoint structure in [/express/routes/cityPairs_v0.js](https://github.com/GSA/prototype-city-pairs-api/blob/master/express/routes/cityPairs_v0.jss__
 
 
 * HTTP headers (e.g. `X-Api-Key: my-key`)
 
-_Not using HTTP heads for keys yet._
+_Not using HTTP headsers for keys._
 
 ### Taxonomy 
 If the API is intended to share data across the GSA enteprise or beyond, consider referencing the GSA Taxonomy. Contact GSA's Chief Data Officer for more information.
@@ -86,18 +80,19 @@ The recommended method of versioning APIs is to include a version number in the 
 
 Use "/v0/" to represent an API that is in prototype or alpha phase and is likely to change frequently without warning.
 
-_Implementing this in /config/routes.js_
+_Implementing this standard by including "v0" in the path. This is part of the configuration in [/express/app.js ](https://github.com/GSA/prototype-city-pairs-api/blob/master/express/app.js):
+
+`app.use('/travel/citypairs/v0', cityPairsV0); //point base path to router`
 
 ### Use JSON
-
-_Doing this. CityPairsMasterController.js calls the Sails [res.json()](http://sailsjs.com/documentation/reference/response-res/res-json) method to stringify the data._
 
 General JSON guidelines:
 
 * Responses should be **a JSON object** (not an array). Using an array to return results limits the ability to include metadata about results, and limits the API's ability to add additional top-level keys in the future.
 
-_I think we are doing this in the CityPairsMasterController.js. Requires more research to be sure._
+_All endpoints return JSON object. Here is an example from [/express/routes/cityPairs_v0.js](https://github.com/GSA/prototype-city-pairs-api/blob/master/express/routes/cityPairs_v0.js)._
 
+`return res.json({message: "This is a prototype API. These results are for demonstration purposes only.",result: rawResult});`
 
 ### Use a consistent date format
 
@@ -108,18 +103,20 @@ _Doing this. JavaScript formats dates this way as a default._
 
 ### API Keys
 
-_Not implemented yet. Would like to implement api.data.gov in the future._
+We recommend using api.data.gov as a layer between your API and users. 
+
+_We are using api.gsa.gov in front of this API, whichi provides key management, and the other benefits mentioned in the standards. This can be seen in the "API Calls" page of the [API documentation](https://gsa.github.io/prototype-city-pairs-api-documentation/api-docs/console/), which includes `api_key` as a required parameter and provides a DEMO_KEY to use for testing. _
 
 
 ### Error handling
 
 Handle all errors (including otherwise uncaught exceptions) and return a data structure in the same format as the rest of the API.
 
-_Doing something like this, although still modifying. This is in the CityPairsMasterController.js._
+_Doing something like this, although still modifying. This is in the [/express/routes/cityPairs_v0.js](https://github.com/GSA/prototype-city-pairs-api/blob/master/express/routes/cityPairs_v0.js)._
 
 HTTP responses with error details should use a `4XX` status code to indicate a client-side failure (such as invalid authorization, or an invalid parameter), and a `5XX` status code to indicate server-side failure (such as an uncaught exception).
 
-_Not doing this yet. Will be soon._
+_400 has currently been implemented._
 
 ### Pagination
 
@@ -146,13 +143,15 @@ _Still researching this._
 
 Just [use UTF-8](http://utf8everywhere.org).
 
-_Doing this by setting header in the CityPairsMasterController.js._
+_Doing this by setting header in the  [/express/routes/cityPairs_v0.js](https://github.com/GSA/prototype-city-pairs-api/blob/master/express/routes/cityPairs_v0.js):_
+
+`res.set({'Content-Type': 'application/json; charset=utf-8'});`
 
 ### CORS
 
-_Currently hard-coding this by setting headers in CityPairsMasterController.js. However the configuration in the /config/cors.js is supposed to handle this but it is not working yet._
+_Doing this by setting header in the  [/express/routes/cityPairs_v0.js](https://github.com/GSA/prototype-city-pairs-api/blob/master/express/routes/cityPairs_v0.js):_
+
+`res.header("Access-Control-Allow-Origin", "*"); `
+`res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");`
 
 
-**What about JSONP?**
-
-_Not supporting JASONP (that is correct according to standards)._
