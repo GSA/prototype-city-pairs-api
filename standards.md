@@ -63,7 +63,8 @@ The URL path for an individual item in this collection would default to:
 _Following this with a URL structure of: travel/citypairs/v0/airfares/:id. See endpoint structure in [/express/routes/cityPairs_v0.js](https://github.com/GSA/prototype-city-pairs-api/blob/master/express/routes/cityPairs_v0.js)__
 
 * The URL query string (e.g. `?year=2014`)
-_Following this with a URL structure of: travel/citypairs/v0/airfares?award_year=2015&origin_airport_abbrev=abq&destination_airport_abbrev=BWI.See endpoint structure in [/express/routes/cityPairs_v0.js](https://github.com/GSA/prototype-city-pairs-api/blob/master/express/routes/cityPairs_v0.jss__
+_Following this with a URL structure of: travel/citypairs/v0/airfares?award_year=2015&origin_airport_abbrev=abq&destination_airport_abbrev=BWI._
+_See endpoint structure in [/express/routes/cityPairs_v0.js](https://github.com/GSA/prototype-city-pairs-api/blob/master/express/routes/cityPairs_v0.jss_
 
 
 * HTTP headers (e.g. `X-Api-Key: my-key`)
