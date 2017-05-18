@@ -44,7 +44,7 @@ _Following this with A URL Structure of: travel/citypairs/v0/airfares.
 * {version}: `V0`
 * {plural_noun}: `airfares`
 
-In the code, this is configred as follows:
+In the code, this is configured as follows:
 
 * {business_function}/{application_name}/{version} -- This is configured in [/express/app.js ](https://github.com/GSA/prototype-city-pairs-api/blob/master/express/app.js):
 
