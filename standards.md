@@ -16,9 +16,6 @@ _How this project implements is in italics._
 
 ## Developers Are Your End Users
 
-### Add Your API To The GSA API Directory
-_Not doing this because it is only a demonstration project. However, if it was a live API, it would be registered in the directory with a link to the API documentation._
-
 ### Provide Documentation
 _We have fully implemented a set of documentation for this API using the documentation template. You can see the documentation repo here: [https://github.com/GSA/prototype-city-pairs-api-documentation](https://github.com/GSA/prototype-city-pairs-api-documentation)_
 
