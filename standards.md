@@ -23,7 +23,7 @@ _We have fully implemented a set of documentation for this API using the documen
 
 ### Point of contact
 
-_For this API, we are demonstrating an approach of having [issues posted in the github repo](https://github.com/GSA/prototype-city-pairs-api/issues) as the primary method of providing support, and providing a GSA email address as as alternate._
+_For this API, we are demonstrating an approach of having [issues posted in the github repo](https://github.com/GSA/p[crototype-city-pairs-api/issues) as the primary method of providing support, and providing a GSA email address as as alternate. This is implemented on the [Contact Us page](https://gsa.github.io/prototype-city-pairs-api-documentation/api-docs/contact_us.html)._
 
 
 ### Avoid Breaking Changes
