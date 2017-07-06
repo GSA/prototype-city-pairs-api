@@ -28,7 +28,7 @@ _For this API, we are demonstrating an approach of having [issues posted in the 
 
 ### Avoid Breaking Changes
 
-_Not specifically addressing this, since it is just a prototype with "v0". However, our approach to this would be as recommended in the standards, keeping a single version with any non-breaking changes and incrementing the version if a breaking change occurs._
+_Not specifically addressing this, since it is just a prototype with "v0". Our approach to this would be as recommended in the standards, keeping a single version with any non-breaking changes and incrementing the version if a breaking change occurs._
 
 ## Design Considerations
 
