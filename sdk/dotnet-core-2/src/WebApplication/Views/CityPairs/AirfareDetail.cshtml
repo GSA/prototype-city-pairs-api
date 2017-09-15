@@ -1,0 +1,47 @@
+﻿@using WebApplication.Controllers
+@using WebApplication.Models
+@model Airfare
+@{
+    ViewData["Title"] = "Airfare Detail";
+}
+
+
+             <h1 id="message">Airfare Detail</h1>
+<!--
+            <div class="bs-example" data-example-id="simple-dl"> 
+            <dl> 
+    		    <dt>ID</dt> <dd>@Model.ID</dd> 
+                <dt>ITEM_NUM</dt> <dd>@Model.ITEM_NUM</dd>  
+                <dt>AWARD_YEAR</dt> <dd>@Model.AWARD_YEAR</dd> 
+             </dl> 
+            </div> -->
+
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                <th>Attribute</th>
+                <th>Value</th>
+			    
+            </tr>
+
+                </thead>
+    
+    
+        <tbody>
+
+    
+    
+            <tr>
+                <td>ID</td><td>@Model.ID</td>
+            </tr>
+            <tr>
+                <td>ITEM_NUM</td><td>@Model.ITEM_NUM</td>
+            </tr>
+            <tr>
+                <td>AWARD_YEAR</td><td>@Model.AWARD_YEAR</td>
+            </tr>
+ 
+        </tbody>
+    </table>
+
+    

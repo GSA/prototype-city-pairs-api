@@ -1,0 +1,30 @@
+﻿@using WebApplication.Controllers
+@using WebApplication.Models
+@model List<Airfare>
+@{
+    ViewData["Title"] = "Airfares";
+}
+
+
+            <h1 id="message">List of Airfares</h1>
+
+
+
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>ORIGIN_AIRPORT_ABBREV</th>
+			    <th>DESTINATION_AIRPORT_ABBREV</th>
+            </tr>
+        </thead>
+        <tbody>
+		@foreach(var fare in Model){
+            <tr>
+                <td><a href="/Airfares/@fare.ID">@fare.ID</a></td>
+                <td>@fare.ORIGIN_AIRPORT_ABBREV</td>
+			    <td>@fare.DESTINATION_AIRPORT_ABBREV</td>
+            </tr>
+		}
+        </tbody>
+    </table>

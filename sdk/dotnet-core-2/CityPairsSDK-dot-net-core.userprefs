@@ -1,0 +1,20 @@
+﻿<Properties StartupConfiguration="{1147A1AE-A354-4FBF-8864-2A75EF18EA65}|Default">
+  <MonoDevelop.Ide.ItemProperties.src.WebApplication PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="src/WebApplication/Views/AccessRequest/Requests.cshtml">
+    <Files>
+      <File FileName="src/WebApplication/Views/CityPairs/Airfares.cshtml" Line="24" Column="29" />
+      <File FileName="src/WebApplication/Models/Airfare.cs" Line="16" Column="22" />
+      <File FileName="src/WebApplication/Views/CityPairs/AirfareDetail.cshtml" Line="3" Column="15" />
+      <File FileName="src/WebApplication/Views/AccessRequest/Index.cshtml" Line="12" Column="18" />
+      <File FileName="src/WebApplication/Controllers/CityPairsController.cs" Line="80" Column="95" />
+      <File FileName="src/WebApplication/Views/Home/Index.cshtml" Line="41" Column="8" />
+      <File FileName="src/WebApplication/Views/AccessRequest/Requests.cshtml" Line="30" Column="21" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MultiItemStartupConfigurations />
+</Properties>
