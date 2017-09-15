@@ -2,6 +2,9 @@
 
 Sample client app using the Prototype City Pairs API
 
+## Seeing it in action
+The SDK app is running currently on cloud.gov here:
+https://city-pairs-sdk-dot-net-core-pierceable-whiskey.app.cloud.gov/
 
 ## Run the app locally
 
