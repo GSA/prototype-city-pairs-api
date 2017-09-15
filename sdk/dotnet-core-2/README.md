@@ -6,6 +6,13 @@ Sample client app using the Prototype City Pairs API
 The SDK app is running currently on cloud.gov here:
 https://city-pairs-sdk-dot-net-core-pierceable-whiskey.app.cloud.gov/
 
+View a sample call to retrieve multiple airfares:
+https://city-pairs-sdk-dot-net-core-pierceable-whiskey.app.cloud.gov/Airfares
+
+View a sample call to retrieve a single airfare by ID:
+https://city-pairs-sdk-dot-net-core-pierceable-whiskey.app.cloud.gov/Airfares/24170
+
+
 ## Run the app locally
 
 1. Install ASP.NET Core .
