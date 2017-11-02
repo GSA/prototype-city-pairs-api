@@ -37,14 +37,14 @@ _Not specifically addressing this, since it is just a prototype with "v0". Howev
 The URL path should follow this pattern if possible for a collection of items:
 (path)/{business_function}/{application_name}/{version}/{plural_noun}
 
-_Following this with A URL Structure of: travel/citypairs/v0/airfares. 
+_Following this with A URL Structure of: travel/citypairs/v0/airfares._ 
 
 * {business_function}: `travel`
 * {application_name}: `citypairs`
 * {version}: `V0`
 * {plural_noun}: `airfares`
 
-In the code, this is configured as follows:
+_In the code, this is configured as follows:_
 
 * {business_function}/{application_name}/{version} -- This is configured in [/express/app.js ](https://github.com/GSA/prototype-city-pairs-api/blob/master/express/app.js):
 
@@ -57,7 +57,7 @@ In the code, this is configured as follows:
 The URL path for an individual item in this collection would default to:
 (path)/{business_function}/{application_name}/{version}/{plural_noun}/{identifier}
 
-_Following this with a URL structure of: travel/citypairs/v0/airfares/:id. See endpoint structure in [/express/routes/cityPairs_v0.js](https://github.com/GSA/prototype-city-pairs-api/blob/master/express/routes/cityPairs_v0.js)__
+_Following this with a URL structure of: travel/citypairs/v0/airfares/:id. See endpoint structure in [/express/routes/cityPairs_v0.js](https://github.com/GSA/prototype-city-pairs-api/blob/master/express/routes/cityPairs_v0.js)_
 
 * The URL query string (e.g. `?year=2014`)
 _Following this with a URL structure of: travel/citypairs/v0/airfares?award_year=2015&origin_airport_abbrev=abq&destination_airport_abbrev=BWI._
@@ -78,7 +78,7 @@ The recommended method of versioning APIs is to include a version number in the 
 
 Use "/v0/" to represent an API that is in prototype or alpha phase and is likely to change frequently without warning.
 
-_Implementing this standard by including "v0" in the path. This is part of the configuration in [/express/app.js ](https://github.com/GSA/prototype-city-pairs-api/blob/master/express/app.js):
+_Implementing this standard by including "v0" in the path. This is part of the configuration in [/express/app.js ](https://github.com/GSA/prototype-city-pairs-api/blob/master/express/app.js):_
 
 `app.use('/travel/citypairs/v0', cityPairsV0); //point base path to router`
 
@@ -103,7 +103,7 @@ _Doing this. JavaScript formats dates this way as a default._
 
 We recommend using api.data.gov as a layer between your API and users. 
 
-_We are using api.gsa.gov in front of this API, whichi provides key management, and the other benefits mentioned in the standards. This can be seen in the "API Calls" page of the [API documentation](https://gsa.github.io/prototype-city-pairs-api-documentation/api-docs/console/), which includes `api_key` as a required parameter and provides a DEMO_KEY to use for testing. _
+_We are using api.gsa.gov in front of this API, whichi provides key management, and the other benefits mentioned in the standards. This can be seen in the "API Calls" page of the [API documentation](https://gsa.github.io/prototype-city-pairs-api-documentation/api-docs/console/), which includes `api_key` as a required parameter and provides a DEMO_KEY to use for testing._
 
 
 ### Error handling
