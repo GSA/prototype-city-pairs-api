@@ -3,7 +3,7 @@ This is a prototype project by the GSA Digital Services. It is being developed a
 
 # Purpose
 It will be used to test out and prototype items including:
-- [GSA API Standards](https://github.com/GSA/api-standards/tree/converting-gsa-standards)
+- [GSA API Standards](https://github.com/GSA/api-standards)
 - [GSA API Documentation Template](https://github.com/GSA/api-documentation-template)
 - Cloud deployment and hosting
 # Additional Guides
