@@ -1,4 +1,6 @@
-### 2018 Update: The original process of interacting with the cloud.gov MySQL database involved the use of node.js programs to run SQL queries and execute data loading scripts across an SSH tunnel provided by the CloudFoundry CLI. This approach is documented below. _This is no longer necessary, due to the [CloudFoundry CLI Service Connection plugin](https://github.com/18F/cf-service-connect#readme)._ A simpler approach now would be to use a database client on a local machine to connect to the cloud database service using the Service Connection plugin.
+### 2018 Update: The original process of interacting with the cloud.gov MySQL database involved the use of node.js programs to run SQL queries and execute data loading scripts across an SSH tunnel provided by the CloudFoundry CLI. This approach is documented below. _This is no longer necessary, due to the [CloudFoundry CLI Service Connection plugin](https://github.com/18F/cf-service-connect#readme)._ 
+
+### A simpler approach now would be to use a database client on a local machine to connect to the cloud database service using the Service Connection plugin.
 
 # How to setup database from cloud.gov console window
 
