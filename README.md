@@ -18,4 +18,4 @@ The API documentation is maintained in a separate repository: https://github.com
 The API documentation can be accessed online at this location: https://gsa.github.io/prototype-city-pairs-api-documentation/api-docs/
 
 ## Other Information
-For more information, contact joseph.castle@gsa.gov.
+For more information, contact cto@gsa.gov.
